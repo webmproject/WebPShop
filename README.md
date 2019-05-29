@@ -48,7 +48,7 @@ project expects `libwebp-[version]-windows-x64` (and/or `-x86`).
 *   `Save`, `Save As` menu commands can be used to write .webp files. Encoding
     parameters can be tuned through the UI.
 
-[docs/webpshop_enc_ui_windows.webp]
+![WebPShop encoding settings - Windows](docs/webpshop_enc_ui_windows.webp)
 
 ## Encoding settings
 
