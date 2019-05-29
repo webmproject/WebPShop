@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		64126BED09F97603006DF4E6 /* WebPShopScripting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126BE709F97603006DF4E6 /* WebPShopScripting.cpp */; };
+		64126BEE09F97603006DF4E6 /* WebPShop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126BEA09F97603006DF4E6 /* WebPShop.cpp */; };
+		64126BFE09F9774A006DF4E6 /* WebPShop.r in Rez */ = {isa = PBXBuildFile; fileRef = 64126BE809F97603006DF4E6 /* WebPShop.r */; };
+		64126C0209F9775D006DF4E6 /* PIUtilities.r in Rez */ = {isa = PBXBuildFile; fileRef = 64126B9A09F97565006DF4E6 /* PIUtilities.r */; };
+		64126C2B09F979EA006DF4E6 /* PIUSuites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126C2A09F979EA006DF4E6 /* PIUSuites.cpp */; };
+		64126C3509F97A19006DF4E6 /* PIUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126C3409F97A19006DF4E6 /* PIUtilities.cpp */; };
+		646B5CAA10D31664001A7C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646B5CA910D31664001A7C6E /* Cocoa.framework */; };
+		646B5D5F10D31674001A7C6E /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646B5D5E10D31674001A7C6E /* AppKit.framework */; };
+		647B633E11138E5B0067F135 /* DialogUtilitiesMac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126C2F09F979F7006DF4E6 /* DialogUtilitiesMac.cpp */; };
+		647B65A2111396450067F135 /* FileUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 647B65A1111396450067F135 /* FileUtilities.cpp */; };
+		6493F375110E7F3700B0E165 /* FileUtilitiesMac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64C38C0510D6A968006A6A12 /* FileUtilitiesMac.cpp */; };
+		7E37B805223BED4B00874549 /* WebPShopUIDialog_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E37B804223BED4B00874549 /* WebPShopUIDialog_mac.mm */; };
+		7E37B80A223BF5E500874549 /* WebPShopUIUtils_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E37B809223BF5E500874549 /* WebPShopUIUtils_mac.mm */; };
+		7E93F711223C237800060FA2 /* WebPShopUI_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E93F710223C237800060FA2 /* WebPShopUI_mac.mm */; };
+		7EAA027822317E6A00F2AA95 /* libwebpdemux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA027522317E6A00F2AA95 /* libwebpdemux.a */; };
+		7EAA027922317E6A00F2AA95 /* libwebpmux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA027622317E6A00F2AA95 /* libwebpmux.a */; };
+		7EAA027A22317E6A00F2AA95 /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAA027722317E6A00F2AA95 /* libwebp.a */; };
+		7EAA027B223180C400F2AA95 /* WebPShopUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126BE609F97603006DF4E6 /* WebPShopUI.cpp */; };
+		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		F4832DB12191FA84005292AD /* WebPShopSelectorRead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832D9C2191FA82005292AD /* WebPShopSelectorRead.cpp */; };
+		F4832DB22191FA84005292AD /* WebPShopUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832D9E2191FA82005292AD /* WebPShopUtils.cpp */; };
+		F4832DB32191FA84005292AD /* WebPShopSelectorReadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832D9F2191FA83005292AD /* WebPShopSelectorReadLayer.cpp */; };
+		F4832DB42191FA84005292AD /* WebPShopDecodeUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA02191FA83005292AD /* WebPShopDecodeUtils.cpp */; };
+		F4832DB62191FA84005292AD /* WebPShopUIUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA32191FA83005292AD /* WebPShopUIUtils.cpp */; };
+		F4832DB72191FA84005292AD /* WebPShopSelectorWriteLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA42191FA83005292AD /* WebPShopSelectorWriteLayer.cpp */; };
+		F4832DB82191FA84005292AD /* WebPShopDataUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA52191FA83005292AD /* WebPShopDataUtils.cpp */; };
+		F4832DB92191FA84005292AD /* WebPShopSelectorFilterFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA62191FA83005292AD /* WebPShopSelectorFilterFile.cpp */; };
+		F4832DBA2191FA84005292AD /* WebPShopSelectorEstimate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA72191FA83005292AD /* WebPShopSelectorEstimate.cpp */; };
+		F4832DBB2191FA84005292AD /* WebPShopImageUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA82191FA83005292AD /* WebPShopImageUtils.cpp */; };
+		F4832DBC2191FA84005292AD /* WebPShopEncodeAnimUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DA92191FA83005292AD /* WebPShopEncodeAnimUtils.cpp */; };
+		F4832DBD2191FA84005292AD /* WebPShopCanvasUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DAA2191FA83005292AD /* WebPShopCanvasUtils.cpp */; };
+		F4832DBE2191FA84005292AD /* WebPShopDimensionsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DAB2191FA84005292AD /* WebPShopDimensionsUtils.cpp */; };
+		F4832DBF2191FA84005292AD /* WebPShopSelectorOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DAC2191FA84005292AD /* WebPShopSelectorOptions.cpp */; };
+		F4832DC02191FA84005292AD /* WebPShopSelectorWrite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DAD2191FA84005292AD /* WebPShopSelectorWrite.cpp */; };
+		F4832DC12191FA84005292AD /* WebPShopDecodeAnimUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DAE2191FA84005292AD /* WebPShopDecodeAnimUtils.cpp */; };
+		F4832DC22191FA84005292AD /* WebPShopEncodeUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4832DAF2191FA84005292AD /* WebPShopEncodeUtils.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../../../../../../System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		64126B2D09F9751D006DF4E6 /* ASPreInclude.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASPreInclude.h; sourceTree = "<group>"; };
+		64126B2E09F9751D006DF4E6 /* PIAbout.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIAbout.h; sourceTree = "<group>"; };
+		64126B2F09F9751D006DF4E6 /* PIAcquire.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIAcquire.h; sourceTree = "<group>"; };
+		64126B3009F9751D006DF4E6 /* PIActions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIActions.h; sourceTree = "<group>"; };
+		64126B3109F9751D006DF4E6 /* PIActionsPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIActionsPlugin.h; sourceTree = "<group>"; };
+		64126B3209F9751D006DF4E6 /* PIAliasSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIAliasSuite.h; sourceTree = "<group>"; };
+		64126B3309F9751D006DF4E6 /* PIBufferSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIBufferSuite.h; sourceTree = "<group>"; };
+		64126B3409F9751D006DF4E6 /* PIChannelPortOperations.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIChannelPortOperations.h; sourceTree = "<group>"; };
+		64126B3509F9751D006DF4E6 /* PIChannelPortsSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIChannelPortsSuite.h; sourceTree = "<group>"; };
+		64126B3609F9751D006DF4E6 /* PIColorSpaceSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIColorSpaceSuite.h; sourceTree = "<group>"; };
+		64126B3709F9751D006DF4E6 /* PIErrorSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIErrorSuite.h; sourceTree = "<group>"; };
+		64126B3809F9751D006DF4E6 /* PIExport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIExport.h; sourceTree = "<group>"; };
+		64126B3909F9751D006DF4E6 /* PIFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIFilter.h; sourceTree = "<group>"; };
+		64126B3A09F9751D006DF4E6 /* PIFormat.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIFormat.h; sourceTree = "<group>"; };
+		64126B3B09F9751D006DF4E6 /* PIGeneral.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIGeneral.h; sourceTree = "<group>"; };
+		64126B3C09F9751D006DF4E6 /* PIGetFileListSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIGetFileListSuite.h; sourceTree = "<group>"; };
+		64126B3D09F9751D006DF4E6 /* PIGetPathSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIGetPathSuite.h; sourceTree = "<group>"; };
+		64126B3E09F9751D006DF4E6 /* PIHandleSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIHandleSuite.h; sourceTree = "<group>"; };
+		64126B3F09F9751D006DF4E6 /* PIPicker.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIPicker.h; sourceTree = "<group>"; };
+		64126B4009F9751D006DF4E6 /* PIProgressSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIProgressSuite.h; sourceTree = "<group>"; };
+		64126B4109F9751D006DF4E6 /* PIProperties.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIProperties.h; sourceTree = "<group>"; };
+		64126B4209F9751D006DF4E6 /* PIResDefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIResDefines.h; sourceTree = "<group>"; };
+		64126B4309F9751D006DF4E6 /* PISelection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PISelection.h; sourceTree = "<group>"; };
+		64126B4409F9751D006DF4E6 /* PIStringTerminology.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIStringTerminology.h; sourceTree = "<group>"; };
+		64126B4509F9751D006DF4E6 /* PITerminology.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PITerminology.h; sourceTree = "<group>"; };
+		64126B4609F9751D006DF4E6 /* PITypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PITypes.h; sourceTree = "<group>"; };
+		64126B4709F9751D006DF4E6 /* PIUIHooksSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUIHooksSuite.h; sourceTree = "<group>"; };
+		64126B4A09F9751D006DF4E6 /* SPAccess.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPAccess.h; sourceTree = "<group>"; };
+		64126B4B09F9751D006DF4E6 /* SPAdapts.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPAdapts.h; sourceTree = "<group>"; };
+		64126B4C09F9751D006DF4E6 /* SPBasic.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPBasic.h; sourceTree = "<group>"; };
+		64126B4D09F9751D006DF4E6 /* SPBckDbg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPBckDbg.h; sourceTree = "<group>"; };
+		64126B4E09F9751D006DF4E6 /* SPBlocks.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPBlocks.h; sourceTree = "<group>"; };
+		64126B4F09F9751D006DF4E6 /* SPCaches.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPCaches.h; sourceTree = "<group>"; };
+		64126B5009F9751D006DF4E6 /* SPCOM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPCOM.h; sourceTree = "<group>"; };
+		64126B5109F9751D006DF4E6 /* SPConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPConfig.h; sourceTree = "<group>"; };
+		64126B5309F9751D006DF4E6 /* SPErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPErrorCodes.h; sourceTree = "<group>"; };
+		64126B5409F9751D006DF4E6 /* SPErrors.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPErrors.h; sourceTree = "<group>"; };
+		64126B5509F9751D006DF4E6 /* SPFiles.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPFiles.h; sourceTree = "<group>"; };
+		64126B5609F9751D006DF4E6 /* SPHost.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPHost.h; sourceTree = "<group>"; };
+		64126B5709F9751D006DF4E6 /* SPInterf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPInterf.h; sourceTree = "<group>"; };
+		64126B5809F9751D006DF4E6 /* SPMData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPMData.h; sourceTree = "<group>"; };
+		64126B5909F9751D006DF4E6 /* SPObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPObject.h; sourceTree = "<group>"; };
+		64126B5A09F9751D006DF4E6 /* SPPiPL.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPPiPL.h; sourceTree = "<group>"; };
+		64126B5B09F9751D006DF4E6 /* SPPlugs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPPlugs.h; sourceTree = "<group>"; };
+		64126B5C09F9751D006DF4E6 /* SPProps.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPProps.h; sourceTree = "<group>"; };
+		64126B5D09F9751D006DF4E6 /* SPRuntme.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPRuntme.h; sourceTree = "<group>"; };
+		64126B5E09F9751D006DF4E6 /* SPStrngs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPStrngs.h; sourceTree = "<group>"; };
+		64126B5F09F9751D006DF4E6 /* SPSTSPrp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPSTSPrp.h; sourceTree = "<group>"; };
+		64126B6009F9751D006DF4E6 /* SPSuites.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPSuites.h; sourceTree = "<group>"; };
+		64126B6109F9751D006DF4E6 /* SPTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SPTypes.h; sourceTree = "<group>"; };
+		64126B6309F9751D006DF4E6 /* PIGeneral.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = PIGeneral.r; sourceTree = "<group>"; };
+		64126B6409F9751D006DF4E6 /* PIMI.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = PIMI.r; sourceTree = "<group>"; };
+		64126B6509F9751D006DF4E6 /* PIPL.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = PIPL.r; sourceTree = "<group>"; };
+		64126B7409F97565006DF4E6 /* DialogUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DialogUtilities.h; sourceTree = "<group>"; };
+		64126B7609F97565006DF4E6 /* FileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileUtilities.h; sourceTree = "<group>"; };
+		64126B7B09F97565006DF4E6 /* MachOMacrezXcode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MachOMacrezXcode.h; sourceTree = "<group>"; };
+		64126B7F09F97565006DF4E6 /* PIDefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIDefines.h; sourceTree = "<group>"; };
+		64126B8109F97565006DF4E6 /* PIMachODebug.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIMachODebug.h; sourceTree = "<group>"; };
+		64126B8209F97565006DF4E6 /* PIMachORelease.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIMachORelease.h; sourceTree = "<group>"; };
+		64126B8509F97565006DF4E6 /* PIRezMachO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIRezMachO.h; sourceTree = "<group>"; };
+		64126B8709F97565006DF4E6 /* PIUActions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUActions.h; sourceTree = "<group>"; };
+		64126B8909F97565006DF4E6 /* PIUFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUFile.h; sourceTree = "<group>"; };
+		64126B8B09F97565006DF4E6 /* PIUI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUI.h; sourceTree = "<group>"; };
+		64126B8E09F97565006DF4E6 /* PIUSuites.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUSuites.h; sourceTree = "<group>"; };
+		64126B8F09F97565006DF4E6 /* PIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUtilities.h; sourceTree = "<group>"; };
+		64126B9A09F97565006DF4E6 /* PIUtilities.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = PIUtilities.r; sourceTree = "<group>"; };
+		64126BE609F97603006DF4E6 /* WebPShopUI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopUI.cpp; path = ../common/WebPShopUI.cpp; sourceTree = SOURCE_ROOT; };
+		64126BE709F97603006DF4E6 /* WebPShopScripting.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopScripting.cpp; path = ../common/WebPShopScripting.cpp; sourceTree = SOURCE_ROOT; };
+		64126BE809F97603006DF4E6 /* WebPShop.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = WebPShop.r; path = ../common/WebPShop.r; sourceTree = SOURCE_ROOT; };
+		64126BE909F97603006DF4E6 /* WebPShopTerminology.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = WebPShopTerminology.h; path = ../common/WebPShopTerminology.h; sourceTree = SOURCE_ROOT; };
+		64126BEA09F97603006DF4E6 /* WebPShop.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShop.cpp; path = ../common/WebPShop.cpp; sourceTree = SOURCE_ROOT; };
+		64126BEB09F97603006DF4E6 /* WebPShop.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = WebPShop.h; path = ../common/WebPShop.h; sourceTree = SOURCE_ROOT; };
+		64126C2509F979E1006DF4E6 /* PIMacUI.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; path = PIMacUI.cpp; sourceTree = "<group>"; };
+		64126C2A09F979EA006DF4E6 /* PIUSuites.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; path = PIUSuites.cpp; sourceTree = "<group>"; };
+		64126C2F09F979F7006DF4E6 /* DialogUtilitiesMac.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; path = DialogUtilitiesMac.cpp; sourceTree = "<group>"; };
+		64126C3409F97A19006DF4E6 /* PIUtilities.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; path = PIUtilities.cpp; sourceTree = "<group>"; };
+		646B5C9E10D3159B001A7C6E /* PSIntTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PSIntTypes.h; sourceTree = "<group>"; };
+		646B5CA910D31664001A7C6E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = ../../../../../../../../../System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		646B5D5E10D31674001A7C6E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = ../../../../../../../../../System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		647B65A1111396450067F135 /* FileUtilities.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; path = FileUtilities.cpp; sourceTree = "<group>"; };
+		64C38C0510D6A968006A6A12 /* FileUtilitiesMac.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; path = FileUtilitiesMac.cpp; sourceTree = "<group>"; };
+		64CC2EB3111CDDB200423B46 /* JSScriptingSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JSScriptingSuite.h; sourceTree = "<group>"; };
+		64CF8EE60AA3A73400120C5A /* ASZStringSuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASZStringSuite.h; sourceTree = "<group>"; };
+		64CF8EE70AA3A73400120C5A /* ASTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASTypes.h; sourceTree = "<group>"; };
+		64CF8EE80AA3A73400120C5A /* ASPragma.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASPragma.h; sourceTree = "<group>"; };
+		64CF8EE90AA3A73400120C5A /* ASConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ASConfig.h; sourceTree = "<group>"; };
+		7E37B801223BEA7A00874549 /* WebPShopUIDialog_mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPShopUIDialog_mac.h; sourceTree = "<group>"; };
+		7E37B804223BED4B00874549 /* WebPShopUIDialog_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebPShopUIDialog_mac.mm; sourceTree = "<group>"; };
+		7E37B807223BF4F700874549 /* WebPShopUIUtils_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPShopUIUtils_mac.h; sourceTree = "<group>"; };
+		7E37B809223BF5E500874549 /* WebPShopUIUtils_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebPShopUIUtils_mac.mm; sourceTree = "<group>"; };
+		7E93F710223C237800060FA2 /* WebPShopUI_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebPShopUI_mac.mm; sourceTree = "<group>"; };
+		7EAA027522317E6A00F2AA95 /* libwebpdemux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpdemux.a; path = "../libwebp-1.0.2-mac-10.14/lib/libwebpdemux.a"; sourceTree = "<group>"; };
+		7EAA027622317E6A00F2AA95 /* libwebpmux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpmux.a; path = "../libwebp-1.0.2-mac-10.14/lib/libwebpmux.a"; sourceTree = "<group>"; };
+		7EAA027722317E6A00F2AA95 /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = "../libwebp-1.0.2-mac-10.14/lib/libwebp.a"; sourceTree = "<group>"; };
+		8D01CCD20486CAD60068D4B7 /* WebPShop.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebPShop.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2880D630B0EECF5001C1C00 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4832D9C2191FA82005292AD /* WebPShopSelectorRead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorRead.cpp; path = ../common/WebPShopSelectorRead.cpp; sourceTree = "<group>"; };
+		F4832D9D2191FA82005292AD /* WebPShopSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebPShopSelector.h; path = ../common/WebPShopSelector.h; sourceTree = "<group>"; };
+		F4832D9E2191FA82005292AD /* WebPShopUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopUtils.cpp; path = ../common/WebPShopUtils.cpp; sourceTree = "<group>"; };
+		F4832D9F2191FA83005292AD /* WebPShopSelectorReadLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorReadLayer.cpp; path = ../common/WebPShopSelectorReadLayer.cpp; sourceTree = "<group>"; };
+		F4832DA02191FA83005292AD /* WebPShopDecodeUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopDecodeUtils.cpp; path = ../common/WebPShopDecodeUtils.cpp; sourceTree = "<group>"; };
+		F4832DA22191FA83005292AD /* WebPShopUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebPShopUI.h; path = ../common/WebPShopUI.h; sourceTree = "<group>"; };
+		F4832DA32191FA83005292AD /* WebPShopUIUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopUIUtils.cpp; path = ../common/WebPShopUIUtils.cpp; sourceTree = "<group>"; };
+		F4832DA42191FA83005292AD /* WebPShopSelectorWriteLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorWriteLayer.cpp; path = ../common/WebPShopSelectorWriteLayer.cpp; sourceTree = "<group>"; };
+		F4832DA52191FA83005292AD /* WebPShopDataUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = WebPShopDataUtils.cpp; path = ../common/WebPShopDataUtils.cpp; sourceTree = "<group>"; };
+		F4832DA62191FA83005292AD /* WebPShopSelectorFilterFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorFilterFile.cpp; path = ../common/WebPShopSelectorFilterFile.cpp; sourceTree = "<group>"; };
+		F4832DA72191FA83005292AD /* WebPShopSelectorEstimate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorEstimate.cpp; path = ../common/WebPShopSelectorEstimate.cpp; sourceTree = "<group>"; };
+		F4832DA82191FA83005292AD /* WebPShopImageUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopImageUtils.cpp; path = ../common/WebPShopImageUtils.cpp; sourceTree = "<group>"; };
+		F4832DA92191FA83005292AD /* WebPShopEncodeAnimUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopEncodeAnimUtils.cpp; path = ../common/WebPShopEncodeAnimUtils.cpp; sourceTree = "<group>"; };
+		F4832DAA2191FA83005292AD /* WebPShopCanvasUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopCanvasUtils.cpp; path = ../common/WebPShopCanvasUtils.cpp; sourceTree = "<group>"; };
+		F4832DAB2191FA84005292AD /* WebPShopDimensionsUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopDimensionsUtils.cpp; path = ../common/WebPShopDimensionsUtils.cpp; sourceTree = "<group>"; };
+		F4832DAC2191FA84005292AD /* WebPShopSelectorOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorOptions.cpp; path = ../common/WebPShopSelectorOptions.cpp; sourceTree = "<group>"; };
+		F4832DAD2191FA84005292AD /* WebPShopSelectorWrite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorWrite.cpp; path = ../common/WebPShopSelectorWrite.cpp; sourceTree = "<group>"; };
+		F4832DAE2191FA84005292AD /* WebPShopDecodeAnimUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopDecodeAnimUtils.cpp; path = ../common/WebPShopDecodeAnimUtils.cpp; sourceTree = "<group>"; };
+		F4832DAF2191FA84005292AD /* WebPShopEncodeUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = WebPShopEncodeUtils.cpp; path = ../common/WebPShopEncodeUtils.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D01CCCD0486CAD60068D4B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EAA027822317E6A00F2AA95 /* libwebpdemux.a in Frameworks */,
+				7EAA027922317E6A00F2AA95 /* libwebpmux.a in Frameworks */,
+				7EAA027A22317E6A00F2AA95 /* libwebp.a in Frameworks */,
+				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
+				646B5CAA10D31664001A7C6E /* Cocoa.framework in Frameworks */,
+				646B5D5F10D31674001A7C6E /* AppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* WebPShop */ = {
+			isa = PBXGroup;
+			children = (
+				7E93F710223C237800060FA2 /* WebPShopUI_mac.mm */,
+				7E37B809223BF5E500874549 /* WebPShopUIUtils_mac.mm */,
+				7E37B807223BF4F700874549 /* WebPShopUIUtils_mac.h */,
+				7E37B804223BED4B00874549 /* WebPShopUIDialog_mac.mm */,
+				7E37B801223BEA7A00874549 /* WebPShopUIDialog_mac.h */,
+				64126BEA09F97603006DF4E6 /* WebPShop.cpp */,
+				F4832DAA2191FA83005292AD /* WebPShopCanvasUtils.cpp */,
+				F4832DA52191FA83005292AD /* WebPShopDataUtils.cpp */,
+				F4832DAE2191FA84005292AD /* WebPShopDecodeAnimUtils.cpp */,
+				F4832DA02191FA83005292AD /* WebPShopDecodeUtils.cpp */,
+				F4832DAB2191FA84005292AD /* WebPShopDimensionsUtils.cpp */,
+				F4832DA92191FA83005292AD /* WebPShopEncodeAnimUtils.cpp */,
+				F4832DAF2191FA84005292AD /* WebPShopEncodeUtils.cpp */,
+				F4832DA82191FA83005292AD /* WebPShopImageUtils.cpp */,
+				64126BE709F97603006DF4E6 /* WebPShopScripting.cpp */,
+				F4832DA72191FA83005292AD /* WebPShopSelectorEstimate.cpp */,
+				F4832DA62191FA83005292AD /* WebPShopSelectorFilterFile.cpp */,
+				F4832DAC2191FA84005292AD /* WebPShopSelectorOptions.cpp */,
+				F4832D9C2191FA82005292AD /* WebPShopSelectorRead.cpp */,
+				F4832D9F2191FA83005292AD /* WebPShopSelectorReadLayer.cpp */,
+				F4832DAD2191FA84005292AD /* WebPShopSelectorWrite.cpp */,
+				F4832DA42191FA83005292AD /* WebPShopSelectorWriteLayer.cpp */,
+				64126BE609F97603006DF4E6 /* WebPShopUI.cpp */,
+				F4832DA32191FA83005292AD /* WebPShopUIUtils.cpp */,
+				F4832D9E2191FA82005292AD /* WebPShopUtils.cpp */,
+				64126BEB09F97603006DF4E6 /* WebPShop.h */,
+				F4832D9D2191FA82005292AD /* WebPShopSelector.h */,
+				64126BE909F97603006DF4E6 /* WebPShopTerminology.h */,
+				F4832DA22191FA83005292AD /* WebPShopUI.h */,
+				64126BE809F97603006DF4E6 /* WebPShop.r */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				7EAA027422317E6A00F2AA95 /* Frameworks */,
+				64126AD309F9751C006DF4E6 /* Photoshop common */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+				64126B7009F97565006DF4E6 /* SDK common */,
+			);
+			indentWidth = 2;
+			name = WebPShop;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				646B5D5E10D31674001A7C6E /* AppKit.framework */,
+				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
+				646B5CA910D31664001A7C6E /* Cocoa.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D01CCD20486CAD60068D4B7 /* WebPShop.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		64126AD309F9751C006DF4E6 /* Photoshop common */ = {
+			isa = PBXGroup;
+			children = (
+				64126B2C09F9751D006DF4E6 /* photoshop */,
+				64126B4909F9751D006DF4E6 /* pica_sp */,
+				64126B6209F9751D006DF4E6 /* resources */,
+			);
+			name = "Photoshop common";
+			path = ../../../../photoshopapi;
+			sourceTree = SOURCE_ROOT;
+		};
+		64126B2C09F9751D006DF4E6 /* photoshop */ = {
+			isa = PBXGroup;
+			children = (
+				64CC2EB3111CDDB200423B46 /* JSScriptingSuite.h */,
+				646B5C9E10D3159B001A7C6E /* PSIntTypes.h */,
+				64CF8EE60AA3A73400120C5A /* ASZStringSuite.h */,
+				64CF8EE70AA3A73400120C5A /* ASTypes.h */,
+				64CF8EE80AA3A73400120C5A /* ASPragma.h */,
+				64CF8EE90AA3A73400120C5A /* ASConfig.h */,
+				64126B2D09F9751D006DF4E6 /* ASPreInclude.h */,
+				64126B2E09F9751D006DF4E6 /* PIAbout.h */,
+				64126B2F09F9751D006DF4E6 /* PIAcquire.h */,
+				64126B3009F9751D006DF4E6 /* PIActions.h */,
+				64126B3109F9751D006DF4E6 /* PIActionsPlugin.h */,
+				64126B3209F9751D006DF4E6 /* PIAliasSuite.h */,
+				64126B3309F9751D006DF4E6 /* PIBufferSuite.h */,
+				64126B3409F9751D006DF4E6 /* PIChannelPortOperations.h */,
+				64126B3509F9751D006DF4E6 /* PIChannelPortsSuite.h */,
+				64126B3609F9751D006DF4E6 /* PIColorSpaceSuite.h */,
+				64126B3709F9751D006DF4E6 /* PIErrorSuite.h */,
+				64126B3809F9751D006DF4E6 /* PIExport.h */,
+				64126B3909F9751D006DF4E6 /* PIFilter.h */,
+				64126B3A09F9751D006DF4E6 /* PIFormat.h */,
+				64126B3B09F9751D006DF4E6 /* PIGeneral.h */,
+				64126B3C09F9751D006DF4E6 /* PIGetFileListSuite.h */,
+				64126B3D09F9751D006DF4E6 /* PIGetPathSuite.h */,
+				64126B3E09F9751D006DF4E6 /* PIHandleSuite.h */,
+				64126B3F09F9751D006DF4E6 /* PIPicker.h */,
+				64126B4009F9751D006DF4E6 /* PIProgressSuite.h */,
+				64126B4109F9751D006DF4E6 /* PIProperties.h */,
+				64126B4209F9751D006DF4E6 /* PIResDefines.h */,
+				64126B4309F9751D006DF4E6 /* PISelection.h */,
+				64126B4409F9751D006DF4E6 /* PIStringTerminology.h */,
+				64126B4509F9751D006DF4E6 /* PITerminology.h */,
+				64126B4609F9751D006DF4E6 /* PITypes.h */,
+				64126B4709F9751D006DF4E6 /* PIUIHooksSuite.h */,
+			);
+			path = photoshop;
+			sourceTree = "<group>";
+		};
+		64126B4909F9751D006DF4E6 /* pica_sp */ = {
+			isa = PBXGroup;
+			children = (
+				64126B4A09F9751D006DF4E6 /* SPAccess.h */,
+				64126B4B09F9751D006DF4E6 /* SPAdapts.h */,
+				64126B4C09F9751D006DF4E6 /* SPBasic.h */,
+				64126B4D09F9751D006DF4E6 /* SPBckDbg.h */,
+				64126B4E09F9751D006DF4E6 /* SPBlocks.h */,
+				64126B4F09F9751D006DF4E6 /* SPCaches.h */,
+				64126B5009F9751D006DF4E6 /* SPCOM.h */,
+				64126B5109F9751D006DF4E6 /* SPConfig.h */,
+				64126B5309F9751D006DF4E6 /* SPErrorCodes.h */,
+				64126B5409F9751D006DF4E6 /* SPErrors.h */,
+				64126B5509F9751D006DF4E6 /* SPFiles.h */,
+				64126B5609F9751D006DF4E6 /* SPHost.h */,
+				64126B5709F9751D006DF4E6 /* SPInterf.h */,
+				64126B5809F9751D006DF4E6 /* SPMData.h */,
+				64126B5909F9751D006DF4E6 /* SPObject.h */,
+				64126B5A09F9751D006DF4E6 /* SPPiPL.h */,
+				64126B5B09F9751D006DF4E6 /* SPPlugs.h */,
+				64126B5C09F9751D006DF4E6 /* SPProps.h */,
+				64126B5D09F9751D006DF4E6 /* SPRuntme.h */,
+				64126B5E09F9751D006DF4E6 /* SPStrngs.h */,
+				64126B5F09F9751D006DF4E6 /* SPSTSPrp.h */,
+				64126B6009F9751D006DF4E6 /* SPSuites.h */,
+				64126B6109F9751D006DF4E6 /* SPTypes.h */,
+			);
+			path = pica_sp;
+			sourceTree = "<group>";
+		};
+		64126B6209F9751D006DF4E6 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				64126B6309F9751D006DF4E6 /* PIGeneral.r */,
+				64126B6409F9751D006DF4E6 /* PIMI.r */,
+				64126B6509F9751D006DF4E6 /* PIPL.r */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		64126B7009F97565006DF4E6 /* SDK common */ = {
+			isa = PBXGroup;
+			children = (
+				64126B7109F97565006DF4E6 /* includes */,
+				64126B9609F97565006DF4E6 /* resources */,
+				64126B9D09F97565006DF4E6 /* sources */,
+			);
+			name = "SDK common";
+			path = ../../../common;
+			sourceTree = SOURCE_ROOT;
+		};
+		64126B7109F97565006DF4E6 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				64126B7409F97565006DF4E6 /* DialogUtilities.h */,
+				64126B7609F97565006DF4E6 /* FileUtilities.h */,
+				64126B7B09F97565006DF4E6 /* MachOMacrezXcode.h */,
+				64126B7F09F97565006DF4E6 /* PIDefines.h */,
+				64126B8109F97565006DF4E6 /* PIMachODebug.h */,
+				64126B8209F97565006DF4E6 /* PIMachORelease.h */,
+				64126B8509F97565006DF4E6 /* PIRezMachO.h */,
+				64126B8709F97565006DF4E6 /* PIUActions.h */,
+				64126B8909F97565006DF4E6 /* PIUFile.h */,
+				64126B8B09F97565006DF4E6 /* PIUI.h */,
+				64126B8E09F97565006DF4E6 /* PIUSuites.h */,
+				64126B8F09F97565006DF4E6 /* PIUtilities.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		64126B9609F97565006DF4E6 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				E2880D630B0EECF5001C1C00 /* Info.plist */,
+				64126B9A09F97565006DF4E6 /* PIUtilities.r */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		64126B9D09F97565006DF4E6 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				647B65A1111396450067F135 /* FileUtilities.cpp */,
+				64C38C0510D6A968006A6A12 /* FileUtilitiesMac.cpp */,
+				64126C2509F979E1006DF4E6 /* PIMacUI.cpp */,
+				64126C2A09F979EA006DF4E6 /* PIUSuites.cpp */,
+				64126C2F09F979F7006DF4E6 /* DialogUtilitiesMac.cpp */,
+				64126C3409F97A19006DF4E6 /* PIUtilities.cpp */,
+			);
+			path = sources;
+			sourceTree = "<group>";
+		};
+		7EAA027422317E6A00F2AA95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7EAA027722317E6A00F2AA95 /* libwebp.a */,
+				7EAA027522317E6A00F2AA95 /* libwebpdemux.a */,
+				7EAA027622317E6A00F2AA95 /* libwebpmux.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D01CCC60486CAD60068D4B7 /* WebPShop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FADC23308B4156C00ABE55E /* Build configuration list for PBXNativeTarget "WebPShop" */;
+			buildPhases = (
+				8D01CCC90486CAD60068D4B7 /* Resources */,
+				8D01CCCB0486CAD60068D4B7 /* Sources */,
+				8D01CCCD0486CAD60068D4B7 /* Frameworks */,
+				64126BFC09F97704006DF4E6 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WebPShop;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = WebPShop;
+			productReference = 8D01CCD20486CAD60068D4B7 /* WebPShop.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+			};
+			buildConfigurationList = 4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "webpshop" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* WebPShop */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D01CCC60486CAD60068D4B7 /* WebPShop */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D01CCC90486CAD60068D4B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		64126BFC09F97704006DF4E6 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64126BFE09F9774A006DF4E6 /* WebPShop.r in Rez */,
+				64126C0209F9775D006DF4E6 /* PIUtilities.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D01CCCB0486CAD60068D4B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4832DBA2191FA84005292AD /* WebPShopSelectorEstimate.cpp in Sources */,
+				7E37B805223BED4B00874549 /* WebPShopUIDialog_mac.mm in Sources */,
+				F4832DB72191FA84005292AD /* WebPShopSelectorWriteLayer.cpp in Sources */,
+				64126BED09F97603006DF4E6 /* WebPShopScripting.cpp in Sources */,
+				F4832DB82191FA84005292AD /* WebPShopDataUtils.cpp in Sources */,
+				F4832DC22191FA84005292AD /* WebPShopEncodeUtils.cpp in Sources */,
+				7E37B80A223BF5E500874549 /* WebPShopUIUtils_mac.mm in Sources */,
+				F4832DBB2191FA84005292AD /* WebPShopImageUtils.cpp in Sources */,
+				64126BEE09F97603006DF4E6 /* WebPShop.cpp in Sources */,
+				F4832DBF2191FA84005292AD /* WebPShopSelectorOptions.cpp in Sources */,
+				F4832DC12191FA84005292AD /* WebPShopDecodeAnimUtils.cpp in Sources */,
+				F4832DB62191FA84005292AD /* WebPShopUIUtils.cpp in Sources */,
+				64126C2B09F979EA006DF4E6 /* PIUSuites.cpp in Sources */,
+				64126C3509F97A19006DF4E6 /* PIUtilities.cpp in Sources */,
+				7EAA027B223180C400F2AA95 /* WebPShopUI.cpp in Sources */,
+				F4832DBD2191FA84005292AD /* WebPShopCanvasUtils.cpp in Sources */,
+				F4832DB42191FA84005292AD /* WebPShopDecodeUtils.cpp in Sources */,
+				F4832DBE2191FA84005292AD /* WebPShopDimensionsUtils.cpp in Sources */,
+				6493F375110E7F3700B0E165 /* FileUtilitiesMac.cpp in Sources */,
+				647B633E11138E5B0067F135 /* DialogUtilitiesMac.cpp in Sources */,
+				647B65A2111396450067F135 /* FileUtilities.cpp in Sources */,
+				F4832DBC2191FA84005292AD /* WebPShopEncodeAnimUtils.cpp in Sources */,
+				F4832DB12191FA84005292AD /* WebPShopSelectorRead.cpp in Sources */,
+				7E93F711223C237800060FA2 /* WebPShopUI_mac.mm in Sources */,
+				F4832DC02191FA84005292AD /* WebPShopSelectorWrite.cpp in Sources */,
+				F4832DB22191FA84005292AD /* WebPShopUtils.cpp in Sources */,
+				F4832DB92191FA84005292AD /* WebPShopSelectorFilterFile.cpp in Sources */,
+				F4832DB32191FA84005292AD /* WebPShopSelectorReadLayer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4FADC23408B4156C00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				HEADER_SEARCH_PATHS = (
+					"../libwebp-1.0.2-mac-10.14/include",
+					../../common/includes,
+					../../../../photoshopapi/photoshop,
+					../../../common/includes,
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				LIBRARY_SEARCH_PATHS = "../libwebp-1.0.2-mac-10.14/lib";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_LDFLAGS = "-v";
+				PLUGIN_TYPE = 8BIF;
+				PRODUCT_NAME = WebPShop;
+				REZ_SEARCH_PATHS = (
+					../../../common/resources,
+					../../../../photoshopapi/resources,
+					../../common/includes,
+				);
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = x86_64;
+				WRAPPER_EXTENSION = plugin;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		4FADC23808B4156C00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				LIBRARY_SEARCH_PATHS = "../libwebp-1.0.2-mac-10.14/lib";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OBJROOT = "$(SYMROOT)../../Objs";
+				ONLY_ACTIVE_ARCH = YES;
+				REZ_PREFIX_FILE = "$(SRCROOT)/../../../common/includes/MachOMacrezXcode.h";
+				SDKROOT = macosx;
+				SYMROOT = ../../../Output/Mac/Debug/;
+				USER_HEADER_SEARCH_PATHS = "../libwebp-1.0.2-mac-10.14/include";
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4FADC23308B4156C00ABE55E /* Build configuration list for PBXNativeTarget "WebPShop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC23408B4156C00ABE55E /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "webpshop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC23808B4156C00ABE55E /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
