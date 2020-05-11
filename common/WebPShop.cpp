@@ -13,7 +13,9 @@
 // limitations under the License.
 
 #include "WebPShop.h"
+
 #include <exception>
+
 #include "PIFormat.h"
 #include "WebPShopSelector.h"
 
@@ -102,10 +104,18 @@ DLLExport MACPASCAL void PluginMain(const int16 selector,
         WebPInitDecoderConfig(&data->read_config);
         data->write_config.quality = 75;
         data->write_config.compression = Compression::DEFAULT;
+        data->write_config.keep_exif = false;
+        data->write_config.keep_xmp = false;
+        data->write_config.keep_color_profile = false;
+        data->write_config.loop_forever = true;
         data->write_config.animation = false;
         data->write_config.display_proxy = false;
         data->file_size = 0;
         data->file_data = nullptr;
+        data->metadata[Metadata::kEXIF].four_cc = "EXIF";
+        data->metadata[Metadata::kXMP].four_cc = "XMP ";
+        data->metadata[Metadata::kICCP].four_cc = "ICCP";
+        for (Metadata& metadata : data->metadata) WebPDataInit(&metadata.chunk);
         WebPDataInit(&data->encoded_data);
         data->anim_decoder = nullptr;
         data->last_frame_timestamp = 0;

@@ -18,7 +18,9 @@
 
 #include <Windows.h>
 #include <commctrl.h>
+
 #include <string>
+
 #include "WebPShopUI.h"
 
 //------------------------------------------------------------------------------
@@ -96,6 +98,12 @@ void WebPShopDialog::ShowItem(short item) {
 }
 void WebPShopDialog::HideItem(short item) {
   ShowWindow(GetItem(item), SW_HIDE);
+}
+void WebPShopDialog::EnableItem(short item) {
+  EnableWindow(GetItem(item), TRUE);
+}
+void WebPShopDialog::DisableItem(short item) {
+  EnableWindow(GetItem(item), FALSE);
 }
 
 //------------------------------------------------------------------------------

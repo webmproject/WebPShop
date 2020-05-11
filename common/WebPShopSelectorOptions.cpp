@@ -47,6 +47,9 @@ void DoOptionsStart(FormatRecordPtr format_record, Data* const data,
   data->write_config.animation = IsAnimation(format_record);
 
   WebPDataClear(&data->encoded_data);
+  if (*result == noErr) {
+    *result = GetHostMetadata(format_record, data->metadata);
+  }
 
   // Don't ask encoding parameters to the user unless Photoshop requests it.
   // This is usually plugInDialogSilent during Batch.
@@ -67,8 +70,8 @@ void DoOptionsStart(FormatRecordPtr format_record, Data* const data,
     }
 
     if (*result == noErr) {
-      if (!DoUI(&data->write_config, plugin_ref, frames, &data->encoded_data,
-                format_record->displayPixels)) {
+      if (!DoUI(&data->write_config, data->metadata, plugin_ref, frames,
+                &data->encoded_data, format_record->displayPixels)) {
         *result = userCanceledErr;
       }
     }
@@ -76,6 +79,10 @@ void DoOptionsStart(FormatRecordPtr format_record, Data* const data,
     if (*result != noErr) WebPDataClear(&data->encoded_data);
     ClearFrameVector(&frames);
   }
+
+  if (*result != noErr) DeallocateMetadata(data->metadata);
+  // If noErr but it does not go through DoWriteFinish(), some data may leak.
+
   format_record->data = nullptr;
 }
 

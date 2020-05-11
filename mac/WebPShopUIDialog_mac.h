@@ -70,6 +70,12 @@ struct Dialog {
   NSButton* compression_radio_button_default = nullptr;
   NSButton* compression_radio_button_smallest = nullptr;
 
+  NSBox* metadata_box = nullptr;
+  NSButton* metadata_exif_checkbox = nullptr;
+  NSButton* metadata_xmp_checkbox = nullptr;
+  NSButton* metadata_iccp_checkbox = nullptr;
+  NSButton* metadata_loop_checkbox = nullptr;
+
   NSBox* proxy_box = nullptr;
   NSButton* proxy_checkbox = nullptr;
   WebPShopProxyView* proxy_view = nullptr;

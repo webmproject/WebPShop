@@ -74,11 +74,39 @@ static void LoadScriptingParameters(FormatRecordPtr format_record,
         LOG("Reading parameter: compression = " << i);
         break;
       }
+      case keyWriteConfig_keep_exif: {
+        Boolean b;
+        readProcs->getBooleanProc(token, &b);
+        if (write_config != nullptr) write_config->keep_exif = (bool)b;
+        LOG("Reading parameter: exif = " << (bool)b);
+        break;
+      }
+      case keyWriteConfig_keep_xmp: {
+        Boolean b;
+        readProcs->getBooleanProc(token, &b);
+        if (write_config != nullptr) write_config->keep_xmp = (bool)b;
+        LOG("Reading parameter: xmp = " << (bool)b);
+        break;
+      }
+      case keyWriteConfig_keep_color_profile: {
+        Boolean b;
+        readProcs->getBooleanProc(token, &b);
+        if (write_config != nullptr) write_config->keep_color_profile = (bool)b;
+        LOG("Reading parameter: color profile = " << (bool)b);
+        break;
+      }
+      case keyWriteConfig_loop_forever: {
+        Boolean b;
+        readProcs->getBooleanProc(token, &b);
+        if (write_config != nullptr) write_config->loop_forever = (bool)b;
+        LOG("Reading parameter: loop forever = " << (bool)b);
+        break;
+      }
       case keyUsePOSIX: {
         Boolean b;
         readProcs->getBooleanProc(token, &b);
         if (use_posix != nullptr) *use_posix = (bool)b;
-        LOG("Reading parameter: posix = " << b);
+        LOG("Reading parameter: posix = " << (bool)b);
         break;
       }
       default: {
@@ -124,11 +152,25 @@ void SaveWriteConfig(FormatRecordPtr format_record,
 
   LOG("Writing parameters: quality = " << write_config.quality);
   LOG("                    compression = " << write_config.compression);
+  LOG("                    keep "
+      << (write_config.keep_exif ? "EXIF" : "NO EXIF") << ", "
+      << (write_config.keep_xmp ? "XMP" : "NO XMP") << ", "
+      << (write_config.keep_color_profile ? "ICC" : "NO ICC"));
+  LOG("                    loop forever = "
+      << (write_config.loop_forever ? "yes" : "no"));
 
   writeProcs->putIntegerProc(token, keyWriteConfig_quality,
                              write_config.quality);
   writeProcs->putIntegerProc(token, keyWriteConfig_compression,
                              write_config.compression);
+  writeProcs->putBooleanProc(token, keyWriteConfig_keep_exif,
+                             write_config.keep_exif);
+  writeProcs->putBooleanProc(token, keyWriteConfig_keep_xmp,
+                             write_config.keep_xmp);
+  writeProcs->putBooleanProc(token, keyWriteConfig_keep_color_profile,
+                             write_config.keep_color_profile);
+  writeProcs->putBooleanProc(token, keyWriteConfig_loop_forever,
+                             write_config.loop_forever);
 
   sPSHandle->Dispose(descParams->descriptor);
   PIDescriptorHandle h;

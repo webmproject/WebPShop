@@ -96,8 +96,18 @@ bool EncodeAllFrames(const std::vector<FrameMemoryDesc>& original_frames,
     return false;
   }
 
+  WebPAnimEncoderOptions anim_encoder_options;
+  if (!WebPAnimEncoderOptionsInit(&anim_encoder_options)) {
+    LOG("/!\\ WebPAnimEncoderOptionsInit() failed.");
+    return false;
+  }
+  anim_encoder_options.anim_params.loop_count =
+      write_config.loop_forever ? 0 : 1;
+  anim_encoder_options.allow_mixed = 1;
+
   WebPAnimEncoder* anim_encoder = WebPAnimEncoderNew(
-      original_frames[0].image.width, original_frames[0].image.height, nullptr);
+      original_frames[0].image.width, original_frames[0].image.height,
+      &anim_encoder_options);
   if (anim_encoder == nullptr) {
     LOG("/!\\ WebPAnimEncoderNew() failed.");
     return false;

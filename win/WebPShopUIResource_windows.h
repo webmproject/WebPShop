@@ -1,4 +1,4 @@
-// Copyright 2018 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,20 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef __WebPShopTerminology_H__
-#define __WebPShopTerminology_H__
+﻿//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by WebPShop.rc
+//
 
-// Used by LoadWriteConfig() and SaveWriteConfig().
-#define keyWriteConfig_quality 'wrtq'
-#define keyWriteConfig_compression 'wrtc'
-#define keyWriteConfig_keep_exif 'wrte'
-#define keyWriteConfig_keep_xmp 'wrtx'
-#define keyWriteConfig_keep_color_profile 'wrtp'
-#define keyWriteConfig_loop_forever 'wrtl'
-#define keyUsePOSIX 'useP'
-
-// Used by AddComment() and WebPShop.r
-#define histResource 'hist'
-#define kHistoryEntry 16989
-
-#endif  // __WebPShopTerminology_H__
+// Next default values for new objects
+//
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE 101
+#define _APS_NEXT_COMMAND_VALUE 40001
+#define _APS_NEXT_CONTROL_VALUE 1000
+#define _APS_NEXT_SYMED_VALUE 101
+#endif
+#endif

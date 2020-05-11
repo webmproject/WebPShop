@@ -120,6 +120,9 @@
     <ClInclude Include="..\common\WebPShopSelector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WebPShopUIResource_windows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WebPShop.rc">

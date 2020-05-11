@@ -13,16 +13,19 @@
 // limitations under the License.
 
 #include "WebPShopUI.h"
+
 #include <string>
+
 #include "PIUI.h"
 #include "WebPShop.h"
 
 //------------------------------------------------------------------------------
 
-bool DoUI(WriteConfig* const write_config, SPPluginRef plugin_ref,
+bool DoUI(WriteConfig* const write_config,
+          const Metadata metadata[Metadata::kNum], SPPluginRef plugin_ref,
           const std::vector<FrameMemoryDesc>& original_frames,
           WebPData* const encoded_data, DisplayPixelsProc display_pixels_proc) {
-  WebPShopDialog dialog(*write_config, original_frames, encoded_data,
+  WebPShopDialog dialog(*write_config, metadata, original_frames, encoded_data,
                         display_pixels_proc);
   int result = dialog.Modal(plugin_ref, NULL, 16090);
   if (result == kDOK) *write_config = dialog.GetWriteConfig();
@@ -68,11 +71,17 @@ void WebPShopDialog::Init(void) {
   compression_radio_group_.SetGroupRange(kDCompressionFastest,
                                          kDCompressionSlowest);
 
+  keep_exif_checkbox_.SetItem(GetItem(kDKeepExif));
+  keep_xmp_checkbox_.SetItem(GetItem(kDKeepXmp));
+  keep_color_profile_checkbox_.SetItem(GetItem(kDKeepColorProfile));
+  loop_forever_checkbox_.SetItem(GetItem(kDLoopForever));
+
   proxy_checkbox_.SetItem(GetItem(kDProxyCheckbox));
 
   frame_duration_text_.SetItem(GetItem(kDFrameDurationText));
 
   // The number of compressed frames can not be known yet.
+  HideItem(kDLoopForever);
   HideItem(kDFrameText);
   HideItem(kDFrameSlider);
   HideItem(kDFrameField);
@@ -103,6 +112,38 @@ void WebPShopDialog::Init(void) {
     compression_radio_group_.SetSelected(kDCompressionDefault);
   } else {
     compression_radio_group_.SetSelected(kDCompressionSlowest);
+  }
+
+  if (metadata_[Metadata::kEXIF].chunk.bytes != nullptr &&
+      metadata_[Metadata::kEXIF].chunk.size > 0) {
+    keep_exif_checkbox_.SetChecked(write_config_.keep_exif);
+    EnableItem(kDKeepExif);
+  } else {
+    keep_exif_checkbox_.SetChecked(false);
+    DisableItem(kDKeepExif);
+  }
+  if (metadata_[Metadata::kXMP].chunk.bytes != nullptr &&
+      metadata_[Metadata::kXMP].chunk.size > 0) {
+    keep_xmp_checkbox_.SetChecked(write_config_.keep_xmp);
+    EnableItem(kDKeepXmp);
+  } else {
+    keep_xmp_checkbox_.SetChecked(false);
+    DisableItem(kDKeepXmp);
+  }
+  if (metadata_[Metadata::kICCP].chunk.bytes != nullptr &&
+      metadata_[Metadata::kICCP].chunk.size > 0) {
+    keep_color_profile_checkbox_.SetChecked(write_config_.keep_color_profile);
+    EnableItem(kDKeepColorProfile);
+  } else {
+    keep_color_profile_checkbox_.SetChecked(false);
+    DisableItem(kDKeepColorProfile);
+  }
+
+  loop_forever_checkbox_.SetChecked(write_config_.loop_forever);
+  if (write_config_.animation) {
+    ShowItem(kDLoopForever);
+  } else {
+    HideItem(kDLoopForever);
   }
 
   proxy_checkbox_.SetChecked(write_config_.display_proxy);
@@ -172,6 +213,13 @@ void WebPShopDialog::PaintProxy(void) {
         return;
       }
 
+      if (!EncodeMetadata(write_config_, metadata_, encoded_data_)) {
+        LOG("/!\\ Metadata muxing failed.");
+        OnError();
+        ClearProxyArea();
+        return;
+      }
+
       // The number of original and compressed frames might differ
       // if there are identical ones; don't check equality.
       if (!DecodeAllFrames(*encoded_data_, &compressed_frames_) ||
@@ -194,7 +242,7 @@ void WebPShopDialog::PaintProxy(void) {
 
       frame_slider_.SetValue((int)frame_index_);
       frame_field_.SetValue((int)frame_index_ + 1);
-    } else {
+    } else {  // !write_config_.animation
       if (original_frames_.size() != 1) {
         LOG("/!\\ Need exactly one image to encode.");
         OnError();
@@ -206,6 +254,13 @@ void WebPShopDialog::PaintProxy(void) {
       if (!EncodeOneImage(original_image, write_config_, encoded_data_) ||
           encoded_data_->size == 0) {
         LOG("/!\\ Encoding failed.");
+        OnError();
+        ClearProxyArea();
+        return;
+      }
+
+      if (!EncodeMetadata(write_config_, metadata_, encoded_data_)) {
+        LOG("/!\\ Metadata muxing failed.");
         OnError();
         ClearProxyArea();
         return;
@@ -382,6 +437,34 @@ void WebPShopDialog::Notify(int32 item) {
     }
     if (write_config_.compression != compression) {
       write_config_.compression = compression;
+      DiscardEncodedData();
+      ForceRepaint();
+    }
+  } else if (item == kDKeepExif) {
+    bool keep_exif = keep_exif_checkbox_.GetChecked();
+    if (write_config_.keep_exif != keep_exif) {
+      write_config_.keep_exif = keep_exif;
+      DiscardEncodedData();
+      ForceRepaint();
+    }
+  } else if (item == kDKeepXmp) {
+    bool keep_xmp = keep_xmp_checkbox_.GetChecked();
+    if (write_config_.keep_xmp != keep_xmp) {
+      write_config_.keep_xmp = keep_xmp;
+      DiscardEncodedData();
+      ForceRepaint();
+    }
+  } else if (item == kDKeepColorProfile) {
+    bool keep_color_profile = keep_color_profile_checkbox_.GetChecked();
+    if (write_config_.keep_color_profile != keep_color_profile) {
+      write_config_.keep_color_profile = keep_color_profile;
+      DiscardEncodedData();
+      ForceRepaint();
+    }
+  } else if (item == kDLoopForever) {
+    bool loop_forever = loop_forever_checkbox_.GetChecked();
+    if (write_config_.loop_forever != loop_forever) {
+      write_config_.loop_forever = loop_forever;
       DiscardEncodedData();
       ForceRepaint();
     }

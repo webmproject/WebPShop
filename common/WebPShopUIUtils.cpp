@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <string>
+
 #include "PIFormat.h"
 #include "WebPShop.h"
 

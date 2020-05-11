@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "PIProperties.h"
 #include "WebPShop.h"
 #include "webp/decode.h"
+#include "webp/demux.h"
 
 bool DecodeOneImage(const WebPData& encoded_data,
                     ImageMemoryDesc* const compressed_image) {
@@ -63,4 +65,126 @@ bool DecodeOneImage(const WebPData& encoded_data,
 
   STOP_TIMER(DecodeOneImage);
   return true;
+}
+
+bool DecodeMetadata(const WebPData& encoded_data,
+                    Metadata metadata[Metadata::kNum]) {
+  DeallocateMetadata(metadata);  // Get rid of any previous data.
+
+  WebPDemuxer* const demux = WebPDemux(&encoded_data);
+  if (demux == nullptr) {
+    LOG("/!\\ WebPDemux failed.");
+    return false;
+  }
+
+  bool success = true;
+  for (int i = 0; success && i < Metadata::kNum; ++i) {
+    WebPChunkIterator iter;
+    const int found = WebPDemuxGetChunk(demux, metadata[i].four_cc, 0, &iter);
+    if (found != 0 && iter.chunk.bytes != nullptr && iter.chunk.size > 0) {
+      if (!WebPDataCopy(&iter.chunk, &metadata[i].chunk)) {
+        LOG("/!\\ WebPDataCopy of " << metadata[i].four_cc << " chunk ("
+                                    << iter.chunk.size << " bytes) failed.");
+        success = false;
+      } else {
+        LOG("Retrieved " << metadata[i].four_cc << " chunk ("
+                         << metadata[i].chunk.size << " bytes).");
+      }
+    }
+    // Only the last chunk of each type is imported.
+    WebPDemuxReleaseChunkIterator(&iter);
+  }
+  WebPDemuxDelete(demux);
+  return success;
+}
+
+static OSErr SetHostProperty(const Metadata& metadata, PIType key) {
+  OSErr result = noErr;
+  const WebPData& chunk = metadata.chunk;
+  if (chunk.bytes != nullptr && chunk.size > 0) {
+    // Code below is inspired from PISetXMP() and PISetEXIFData().
+    if (sPSHandle->New == nullptr) {
+      LOG("/!\\ sPSHandle->New is null");
+      result = errPlugInHostInsufficient;
+    } else {
+      Handle handle = sPSHandle->New((int32)chunk.size);
+      if (handle == nullptr) {
+        LOG("/!\\ Could not allocate " << chunk.size
+                                       << " bytes with sPSHandle->New()");
+        result = memFullErr;
+      } else {
+        Boolean oldLock = FALSE;
+        Ptr ptr = nullptr;
+        sPSHandle->SetLock(handle, true, &ptr, &oldLock);
+        if (ptr == nullptr) {
+          LOG("/!\\ SetLock failed");
+          result = vLckdErr;
+        } else {
+          std::copy(chunk.bytes, chunk.bytes + chunk.size, ptr);
+          sPSHandle->SetLock(handle, false, &ptr, &oldLock);
+          result = sPSProperty->setPropertyProc(kPhotoshopSignature, key, 0,
+                                                NULL, handle);
+          if (result != noErr) {
+            LOG("/!\\ setPropertyProc failed (" << result << ")");
+          } else {
+            LOG("Set " << chunk.size << " bytes of " << metadata.four_cc);
+          }
+        }
+        if (result != noErr) sPSHandle->Dispose(handle);
+      }
+    }
+  }
+  return result;
+}
+
+static OSErr SetHostICCProfile(FormatRecordPtr format_record,
+                               const Metadata& metadata) {
+  OSErr result = noErr;
+  const WebPData& chunk = metadata.chunk;
+  if (chunk.bytes != nullptr && chunk.size > 0) {
+    if (format_record->handleProcs == nullptr) {
+      LOG("handleProcs is null, considering no ICCP");
+    } else if (format_record->handleProcs->lockProc == nullptr) {
+      LOG("handleProcs->lockProc is null, considering no ICCP");
+    } else if (format_record->handleProcs->unlockProc == nullptr) {
+      LOG("handleProcs->lockProc is null, considering no ICCP");
+    } else {
+      const int32 size = (int32)chunk.size;
+      Handle handle = sPSHandle->New(size);
+      if (handle == nullptr) {
+        LOG("/!\\ Could not allocate " << size
+                                       << " bytes with sPSHandle->New()");
+        result = memFullErr;
+      } else {
+        Ptr ptr = format_record->handleProcs->lockProc(handle, false);
+        if (ptr == nullptr) {
+          LOG("/!\\ lockProc failed");
+          result = vLckdErr;
+          sPSHandle->Dispose(handle);
+        } else {
+          std::copy(chunk.bytes, chunk.bytes + chunk.size, ptr);
+          format_record->handleProcs->unlockProc(handle);
+
+          format_record->iCCprofileData = handle;
+          format_record->iCCprofileSize = size;
+          LOG("Set " << size << " bytes of color profile.");
+        }
+      }
+    }
+  }
+  return result;
+}
+
+OSErr SetHostMetadata(FormatRecordPtr format_record,
+                      const Metadata metadata[Metadata::kNum]) {
+  OSErr result = SetHostProperty(metadata[Metadata::kEXIF], propEXIFData);
+  if (result != noErr) return result;
+
+  result = SetHostProperty(metadata[Metadata::kXMP], propXMP);
+  if (result != noErr) return result;
+
+  result = SetHostICCProfile(format_record, metadata[Metadata::kICCP]);
+  if (result != noErr) return result;
+
+  return noErr;
 }

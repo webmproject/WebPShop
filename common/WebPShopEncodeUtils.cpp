@@ -13,8 +13,10 @@
 // limitations under the License.
 
 #include "FileUtilities.h"
+#include "PIProperties.h"
 #include "WebPShop.h"
 #include "webp/encode.h"
+#include "webp/mux.h"
 
 void SetWebPConfig(WebPConfig* const config, const WriteConfig& write_config) {
   if (write_config.quality < 0 || write_config.quality > 100) {
@@ -108,6 +110,159 @@ bool EncodeOneImage(const ImageMemoryDesc& original_image,
 
   STOP_TIMER(EncodeOneImage);
   return true;
+}
+
+static OSErr GetHostProperty(PIType key, Metadata* const metadata) {
+  OSErr result = noErr;
+
+  // Code below is inspired from PIGetXMP() and PIGetEXIFData().
+  if (sPSProperty->getPropertyProc == nullptr) {
+    LOG("getPropertyProc is null, considering no " << metadata->four_cc);
+  } else {
+    Handle handle = nullptr;
+    const OSErr error = sPSProperty->getPropertyProc(kPhotoshopSignature, key,
+                                                     0, nullptr, &handle);
+    if (error != noErr) {
+      LOG("getPropertyProc failed (" << error << "), considering no "
+                                     << metadata->four_cc);
+    } else if (handle == nullptr) {
+      LOG("handle is null, considering no " << metadata->four_cc);
+    } else {
+      const int32 size = sPSHandle->GetSize(handle);
+      if (size <= 0) {
+        LOG("size is " << size << ", considering no " << metadata->four_cc);
+      } else {
+        Boolean oldLock = FALSE;
+        Ptr ptr = nullptr;
+        sPSHandle->SetLock(handle, true, &ptr, &oldLock);
+        if (ptr == nullptr) {
+          LOG("/!\\ SetLock failed");
+          result = vLckdErr;
+        } else {
+          LOG("Got " << size << " bytes of " << metadata->four_cc);
+          const WebPData view = {(const uint8_t*)ptr, (size_t)size};
+          if (!WebPDataCopy(&view, &metadata->chunk)) {
+            LOG("/!\\ WebPDataCopy of " << metadata->four_cc << " chunk ("
+                                        << size << " bytes) failed.");
+            result = memFullErr;
+          }
+          sPSHandle->SetLock(handle, false, &ptr, &oldLock);
+        }
+      }
+      sPSHandle->Dispose(handle);
+    }
+  }
+  return result;
+}
+
+static OSErr GetHostICCProfile(FormatRecordPtr format_record,
+                               Metadata* const metadata) {
+  OSErr result = noErr;
+  if (format_record->handleProcs == nullptr) {
+    LOG("handleProcs is null, considering no ICCP");
+  } else if (format_record->handleProcs->lockProc == nullptr) {
+    LOG("handleProcs->lockProc is null, considering no ICCP");
+  } else if (format_record->handleProcs->unlockProc == nullptr) {
+    LOG("handleProcs->lockProc is null, considering no ICCP");
+  } else if (format_record->iCCprofileData == nullptr) {
+    LOG("iCCprofileData is null, considering no ICCP");
+  } else {
+    Ptr ptr = format_record->handleProcs->lockProc(
+        format_record->iCCprofileData, false);
+    if (ptr == nullptr) {
+      LOG("/!\\ lockProc failed");
+      result = vLckdErr;
+    } else {
+      const int32_t size = format_record->iCCprofileSize;
+      if (size <= 0) {
+        LOG("iCCprofileSize is " << size << ", considering no ICCP");
+      } else {
+        LOG("Got " << size << " bytes of color profile.");
+        const WebPData view = {(const uint8_t*)ptr, (size_t)size};
+        if (!WebPDataCopy(&view, &metadata->chunk)) {
+          LOG("/!\\ WebPDataCopy of ICCP chunk (" << size << " bytes) failed.");
+          result = memFullErr;
+        }
+      }
+      format_record->handleProcs->unlockProc(format_record->iCCprofileData);
+    }
+  }
+  return result;
+}
+
+OSErr GetHostMetadata(FormatRecordPtr format_record,
+                      Metadata metadata[Metadata::kNum]) {
+  DeallocateMetadata(metadata);  // Get rid of any previous data.
+
+  OSErr result = GetHostProperty(propEXIFData, &metadata[Metadata::kEXIF]);
+  if (result != noErr) return result;
+
+  result = GetHostProperty(propXMP, &metadata[Metadata::kXMP]);
+  if (result != noErr) return result;
+
+  result = GetHostICCProfile(format_record, &metadata[Metadata::kICCP]);
+  if (result != noErr) return result;
+
+  return noErr;
+}
+
+bool EncodeMetadata(const WriteConfig& write_config,
+                    const Metadata metadata[Metadata::kNum],
+                    WebPData* const encoded_data) {
+  bool success = true;
+  WebPMux* mux = nullptr;  // Only create mux instance when needed.
+  const bool keep[Metadata::kNum] = {write_config.keep_exif,
+                                     write_config.keep_xmp,
+                                     write_config.keep_color_profile};
+
+  for (int i = 0; i < Metadata::kNum; ++i) {
+    if (metadata[i].chunk.size > 0 && metadata[i].chunk.bytes != nullptr &&
+        keep[i]) {
+      if (mux == nullptr) {
+        // Copy data into mux object as it will be overwritten.
+        mux = WebPMuxCreate(encoded_data, /*copy_data=*/1);
+        if (mux == nullptr) {
+          LOG("/!\\ WebPMuxCreate failed.");
+          success = false;
+          break;
+        }
+      }
+
+      const WebPMuxError mux_error = WebPMuxSetChunk(
+          mux, metadata[i].four_cc, &metadata[i].chunk, /*copy_data=*/0);
+      if (mux_error != WEBP_MUX_OK) {
+        LOG("/!\\ WebPMuxSetChunk(" << metadata[i].four_cc << ") failed ("
+                                    << mux_error << ").");
+        success = false;
+        break;
+      } else {
+        LOG("Added " << metadata[i].four_cc << " chunk ("
+                     << metadata[i].chunk.size << " bytes).");
+      }
+    }
+  }
+
+  if (mux != nullptr) {
+    if (success) {
+      WebPData mux_data = {nullptr, 0};
+      const WebPMuxError mux_error = WebPMuxAssemble(mux, &mux_data);
+      if (mux_error != WEBP_MUX_OK) {
+        LOG("/!\\ WebPMuxAssemble failed (" << mux_error << ").");
+        success = false;
+        WebPDataClear(&mux_data);
+      } else {
+        // Now the muxed data can safely replace the previous one.
+        WebPDataClear(encoded_data);
+        *encoded_data = mux_data;
+        mux_data.bytes = nullptr;  // Do not free memory.
+        mux_data.size = 0;
+      }
+    }
+    WebPMuxDelete(mux);
+  } else {
+    LOG("No metadata written.");
+  }
+  return success;
 }
 
 void WriteToFile(const WebPData& encoded_data, FormatRecordPtr format_record,

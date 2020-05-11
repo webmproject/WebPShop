@@ -31,6 +31,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+
 #include "PIFormat.h"
 #include "PITypes.h"
 #include "PIUtilities.h"
@@ -91,8 +92,18 @@ enum Compression { FASTEST = 0, DEFAULT = 1, SLOWEST = 2 };
 struct WriteConfig {
   int quality;  // [0..100]
   Compression compression;
+  bool keep_exif;
+  bool keep_xmp;
+  bool keep_color_profile;
+  bool loop_forever;
   bool animation;
   bool display_proxy;
+};
+
+struct Metadata {
+  enum kType { kEXIF, kXMP, kICCP, kNum };
+  const char* four_cc;
+  WebPData chunk;
 };
 
 // An instance of Data will be allocated on the first time the plugin is
@@ -103,6 +114,7 @@ struct Data {
   WriteConfig write_config;
   size_t file_size;
   void* file_data;
+  Metadata metadata[Metadata::kNum];
   WebPData encoded_data;
   WebPAnimDecoder* anim_decoder;
   int last_frame_timestamp;
@@ -132,7 +144,8 @@ struct FrameMemoryDesc {
 // User interface
 
 // Displays a window with writing (encoding) options.
-bool DoUI(WriteConfig* const write_config, SPPluginRef plugin_ref,
+bool DoUI(WriteConfig* const write_config,
+          const Metadata metadata[Metadata::kNum], SPPluginRef plugin_ref,
           const std::vector<FrameMemoryDesc>& original_frames,
           WebPData* const encoded_data, DisplayPixelsProc display_pixels_proc);
 void DoAboutBox(SPPluginRef plugin_ref);
@@ -178,6 +191,7 @@ void Deallocate(void** const buffer);
 bool AllocateImage(ImageMemoryDesc* const image, int32 width, int32 height,
                    int num_channels);
 void DeallocateImage(ImageMemoryDesc* const image);
+void DeallocateMetadata(Metadata metadata[Metadata::kNum]);
 
 // Deallocates frames that won't be used after vector::resize().
 void ResizeFrameVector(std::vector<FrameMemoryDesc>* const frames, size_t size);
@@ -229,6 +243,14 @@ bool EncodeAllFrames(const std::vector<FrameMemoryDesc>& original_frames,
                      const WriteConfig& write_config,
                      WebPData* const encoded_data);
 
+// Retrieves metadata from host (current Photoshop document).
+OSErr GetHostMetadata(FormatRecordPtr format_record,
+                      Metadata metadata[Metadata::kNum]);
+// Adds kept available metadata (EXIF, XMP, ICC) to encoded_data.
+bool EncodeMetadata(const WriteConfig& write_config,
+                    const Metadata metadata[Metadata::kNum],
+                    WebPData* const encoded_data);
+
 // Writes encoded_data to file opened by host.
 void WriteToFile(const WebPData& encoded_data, FormatRecordPtr format_record,
                  int16* const result);
@@ -241,6 +263,13 @@ bool DecodeOneImage(const WebPData& encoded_data,
                     ImageMemoryDesc* const compressed_image);
 bool DecodeAllFrames(const WebPData& encoded_data,
                      std::vector<FrameMemoryDesc>* const compressed_frames);
+
+// Gets available metadata from encoded_data.
+bool DecodeMetadata(const WebPData& encoded_data,
+                    Metadata metadata[Metadata::kNum]);
+// Sends metadata to host (current Photoshop document).
+OSErr SetHostMetadata(FormatRecordPtr format_record,
+                      const Metadata metadata[Metadata::kNum]);
 
 // Decodes file opened by host into format_record->data.
 void ReadOneImage(FormatRecordPtr format_record, Data* const data,

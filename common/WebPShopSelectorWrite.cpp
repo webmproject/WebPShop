@@ -63,7 +63,7 @@ void DoWriteStart(FormatRecordPtr format_record, Data* const data,
         *result = writErr;
       }
       ClearFrameVector(&original_frames);
-    } else {
+    } else {  // !data->write_config.animation
       ImageMemoryDesc image;
       CopyWholeCanvas(format_record, data, result, &image);
 
@@ -74,6 +74,10 @@ void DoWriteStart(FormatRecordPtr format_record, Data* const data,
         *result = writErr;
       }
       DeallocateImage(&image);
+    }
+    if (*result == noErr && !EncodeMetadata(data->write_config, data->metadata,
+                                            &data->encoded_data)) {
+      *result = writErr;
     }
   }
   RequestWholeCanvas(format_record, result);  // Prevent inf loop.
@@ -90,6 +94,7 @@ void DoWriteContinue(FormatRecordPtr format_record, Data* const data,
   }
 
   WebPDataClear(&data->encoded_data);
+  DeallocateMetadata(data->metadata);
   Deallocate(&format_record->data);
 }
 
@@ -99,6 +104,7 @@ void DoWriteFinish(FormatRecordPtr format_record, Data* const data,
                    int16* const result) {
   // Should be empty. Just in case.
   WebPDataClear(&data->encoded_data);
+  DeallocateMetadata(data->metadata);
   Deallocate(&format_record->data);
 
   if (*result == noErr) {

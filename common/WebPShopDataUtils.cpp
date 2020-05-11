@@ -14,6 +14,7 @@
 
 #include <fstream>
 #include <string>
+
 #include "FileUtilities.h"
 #include "WebPShop.h"
 
@@ -23,10 +24,9 @@ void ReadSome(size_t count, void* const buffer, FormatRecordPtr format_record,
               int16* const result) {
   if (*result != noErr) return;
   int32 read_count = (int32)count;
-  *result =
-      PSSDKRead((int32)format_record->dataFork,
-                format_record->posixFileDescriptor,
-                format_record->pluginUsingPOSIXIO, &read_count, buffer);
+  *result = PSSDKRead((int32)format_record->dataFork,
+                      format_record->posixFileDescriptor,
+                      format_record->pluginUsingPOSIXIO, &read_count, buffer);
   if (*result == noErr && (size_t)read_count != count) *result = eofErr;
   if (*result != noErr) LOG("/!\\ Unable to read " << count << " bytes.");
 }
@@ -59,10 +59,9 @@ void AllocateAndRead(size_t count, void** const buffer,
   Allocate(count, buffer, result);
   if (*result != noErr) return;
 
-  *result =
-      PSSDKSetFPos((int32)format_record->dataFork,
-                   format_record->posixFileDescriptor,
-                   format_record->pluginUsingPOSIXIO, fsFromStart, 0);
+  *result = PSSDKSetFPos((int32)format_record->dataFork,
+                         format_record->posixFileDescriptor,
+                         format_record->pluginUsingPOSIXIO, fsFromStart, 0);
   if (*result != noErr) {
     LOG("/!\\ Unable to set cursor at the beginning of the file.");
     Deallocate(buffer);
@@ -88,10 +87,9 @@ bool ReadAndCheckHeader(FormatRecordPtr format_record, int16* const result,
                         size_t* file_size) {
   if (*result != noErr) return false;
 
-  *result =
-      PSSDKSetFPos((int32)format_record->dataFork,
-                   format_record->posixFileDescriptor,
-                   format_record->pluginUsingPOSIXIO, fsFromStart, 0);
+  *result = PSSDKSetFPos((int32)format_record->dataFork,
+                         format_record->posixFileDescriptor,
+                         format_record->pluginUsingPOSIXIO, fsFromStart, 0);
   if (*result != noErr) return false;
 
   uint8_t file_header[12];

@@ -1,6 +1,6 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.2.1
+Current plug-in version: WebPShop 0.3.0
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
@@ -10,12 +10,20 @@ using the contents of this repository or contributing.
 
 ## Installation
 
-Current library version: WebP 1.0.2
+Current library version: WebP 1.1.0
 
 Put the file from the `bin` folder in the Photoshop plug-in directory
 (`C:\Program Files\Adobe\Adobe Photoshop\Plug-ins\WebPShop.8bi` for Windows x64,
 `Applications/Adobe Photoshop/Plug-ins/WebPShop.plugin` for Mac). Run Photoshop.
-That's it!
+
+On macOS 10.15+, the prompt "WebPShop.plugin cannot be opened because
+the developer cannot be verified" can be bypassed by running the following
+in Terminal (Finder > Applications > Utilities):
+
+```
+sudo xattr -r -d com.apple.quarantine \
+  /Applications/Adobe\ Photoshop\ 2020/Plug-ins/WebPShop.plugin
+```
 
 ## Build
 

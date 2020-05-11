@@ -31,12 +31,16 @@ const int16 kDQualityField = 12;
 const int16 kDCompressionFastest = 21;
 const int16 kDCompressionDefault = 22;
 const int16 kDCompressionSlowest = 23;
-const int16 kDProxy = 31;
-const int16 kDProxyCheckbox = 32;
-const int16 kDFrameText = 35;
-const int16 kDFrameSlider = 36;
-const int16 kDFrameField = 37;
-const int16 kDFrameDurationText = 38;
+const int16 kDKeepExif = 33;
+const int16 kDKeepXmp = 34;
+const int16 kDKeepColorProfile = 35;
+const int16 kDLoopForever = 38;
+const int16 kDProxy = 41;
+const int16 kDProxyCheckbox = 42;
+const int16 kDFrameText = 45;
+const int16 kDFrameSlider = 46;
+const int16 kDFrameField = 47;
+const int16 kDFrameDurationText = 48;
 
 const int16 kDAboutWebPLink = 10;
 
@@ -45,8 +49,8 @@ const int16 kDAboutWebPLink = 10;
 
 struct PaintingContext {
 #ifdef __PIMac__
-  void* cg_context;
-  void* proxy_view;
+  void* cg_context;  // CGContextRef instance
+  void* proxy_view;  // WebPShopProxyView instance
 #else
   PAINTSTRUCT ps;
   HDC hDC;
@@ -107,6 +111,10 @@ class WebPShopDialog : public PIDialog {
   PISlider quality_slider_;
   PIIntegerField quality_field_;
   PIRadioGroup compression_radio_group_;
+  PICheckBox keep_exif_checkbox_;
+  PICheckBox keep_xmp_checkbox_;
+  PICheckBox keep_color_profile_checkbox_;
+  PICheckBox loop_forever_checkbox_;
   PICheckBox proxy_checkbox_;
   PISlider frame_slider_;
   PIIntegerField frame_field_;
@@ -114,6 +122,7 @@ class WebPShopDialog : public PIDialog {
 
   // Settings
   WriteConfig write_config_;
+  const Metadata* metadata_;
 
   // Currently displayed
   size_t frame_index_;
@@ -140,6 +149,8 @@ class WebPShopDialog : public PIDialog {
   PIItem GetItem(short item);
   void ShowItem(short item);
   void HideItem(short item);
+  void EnableItem(short item);
+  void DisableItem(short item);
   VRect GetProxyAreaRectInWindow(void);
   void BeginPainting(PaintingContext* const painting_context);
   void EndPainting(PaintingContext* const painting_context);
@@ -154,6 +165,7 @@ class WebPShopDialog : public PIDialog {
 
  public:
   WebPShopDialog(const WriteConfig& write_config,
+                 const Metadata metadata[Metadata::kNum],
                  const std::vector<FrameMemoryDesc>& original_frames,
                  WebPData* const encoded_data,
                  DisplayPixelsProc display_pixels_proc)
@@ -162,11 +174,16 @@ class WebPShopDialog : public PIDialog {
         quality_slider_(),
         quality_field_(),
         compression_radio_group_(),
+        keep_exif_checkbox_(),
+        keep_xmp_checkbox_(),
+        keep_color_profile_checkbox_(),
+        loop_forever_checkbox_(),
         proxy_checkbox_(),
         frame_slider_(),
         frame_field_(),
         frame_duration_text_(),
         write_config_(write_config),
+        metadata_(metadata),
         frame_index_(0),
         selection_in_compressed_frame_(),
         original_frames_(original_frames),

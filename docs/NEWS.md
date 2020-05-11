@@ -24,4 +24,12 @@
 
     *   Adapted UI quality and compression mappings to WebP encoding settings.
     *   Tested on Windows Server 2016 Datacenter with Photoshop CC 2019
-        (v.20.0.4) x64, Release.
+        (v 20.0.4) x64, Release.
+
+-   29/04/2020: v0.3.0
+
+    *   Added the "Loop forever" checkbox for animations.
+    *   Added metadata import/export from/to WebP through the "Keep EXIF",
+        "Keep XMP" and "Keep Color Profile" checkboxes.
+    *   Tested on Windows Server 2016 Datacenter with Photoshop 2020
+        (v 21.1.2) x64, Release.

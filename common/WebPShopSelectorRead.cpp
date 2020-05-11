@@ -92,6 +92,16 @@ void DoReadStart(FormatRecordPtr format_record, Data* const data,
   }
 
   if (*result == noErr) {
+    const WebPData encoded_data = {(uint8_t*)data->file_data, data->file_size};
+    if (!DecodeMetadata(encoded_data, data->metadata)) *result = readErr;
+  }
+
+  if (*result == noErr) {
+    *result = SetHostMetadata(format_record, data->metadata);
+  }
+  DeallocateMetadata(data->metadata);
+
+  if (*result == noErr) {
     format_record->imageMode = plugInModeRGBColor;
     format_record->imageSize32.h = data->read_config.input.width;
     format_record->imageSize32.v = data->read_config.input.height;

@@ -47,6 +47,13 @@ void DeallocateImage(ImageMemoryDesc* const image) {
   Deallocate(&image->pixels.data);
 }
 
+void DeallocateMetadata(Metadata metadata[Metadata::kNum]) {
+  for (int i = 0; i < Metadata::kNum; ++i) {
+    WebPDataClear(&metadata[i].chunk);
+    metadata[i].chunk.size = 0;  // Extra safety in case NULL but size>0.
+  }
+}
+
 //------------------------------------------------------------------------------
 
 void ResizeFrameVector(std::vector<FrameMemoryDesc>* const frames,

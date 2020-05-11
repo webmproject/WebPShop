@@ -14,116 +14,110 @@
 
 // Microsoft Visual C++ generated resource script.
 //
+#include "WebPShopUIResource_windows.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 //
-// Generated from the TEXTINCLUDE 1 resource.
+// Generated from the TEXTINCLUDE 2 resource.
 //
-#define APSTUDIO_HIDDEN_SYMBOLS
-#include "windows.h"
-#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "winres.h"
 
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
-#define PLUGINNAME "WebP Plug-In"
-
-////////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 //
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE
+1 TEXTINCLUDE 
 BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "WebPShopUIResource_windows.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
     "\0"
 END
 
-2 TEXTINCLUDE
+3 TEXTINCLUDE 
 BEGIN
     "#include ""WebPShop.pipl""\r\n"
+    "\0"
 END
 
 #endif    // APSTUDIO_INVOKED
 
 
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
 //
 
-// On a line, first integer is ID, then x, y, width, height.
-
-16090 DIALOGEX 0, 0, 369, 285
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+16090 DIALOGEX 0, 0, 371, 318
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "WebPShop"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&OK",1,312,6,50,14
     PUSHBUTTON      "&Cancel",2,312,23,50,14
     LTEXT           "WebP settings:",5,6,6,92,8
-
     GROUPBOX        "Quality",10,6,18,204,54
-    CONTROL         "",11,"msctls_trackbar32",
-                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,40,30,100,15
-    EDITTEXT        12,174,30,24,14,ES_AUTOHSCROLL
+    CONTROL         "",11,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,40,30,100,15
+    EDITTEXT        12,174,30,24,14,ES_CENTER | ES_AUTOHSCROLL
     LTEXT           "Lossy",13,35,50,50,8
     LTEXT           "Lossless",14,120,50,50,8
-
     GROUPBOX        "Compression",20,222,18,78,54
     CONTROL         "Fastest",21,"Button",BS_AUTORADIOBUTTON,228,30,66,10
     CONTROL         "Default",22,"Button",BS_AUTORADIOBUTTON,228,42,66,10
-    CONTROL         "Slowest",23,"Button",
-                    BS_AUTORADIOBUTTON,228,54,66,10
-
-    GROUPBOX        "         ",30,5,80,359,200
-    CTEXT           "",31,10,95,350,180,NOT WS_VISIBLE  // Proxy (preview) area
-    CONTROL         "Preview: 12.3 kB",32,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,80,80,8
-
-    LTEXT           "  Frame: ",35,190,80,35,8
-    CONTROL         "",36,"msctls_trackbar32",
-                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,220,78,100,12
-    EDITTEXT        37,322,76,24,14,ES_AUTOHSCROLL
-    LTEXT           "40 ms",38,322,60,35,8
+    CONTROL         "Slowest",23,"Button",BS_AUTORADIOBUTTON,228,54,66,10
+    GROUPBOX        "Metadata",30,6,79,359,28
+    CONTROL         "Keep EXIF",33,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,13,91,80,8
+    CONTROL         "Keep XMP",34,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,98,91,80,8
+    CONTROL         "Keep Color Profile",35,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,183,91,80,8
+    CONTROL         "Loop forever",38,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,268,91,80,8
+    GROUPBOX        "         ",40,6,114,359,200
+    CTEXT           "",41,10,128,350,180,NOT WS_VISIBLE
+    CONTROL         "Preview: 12.3 kB",42,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,113,80,8
+    RTEXT           "  Frame: ",45,146,113,49,8
+    CONTROL         "",46,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,195,112,100,12
+    EDITTEXT        47,295,110,24,14,ES_CENTER | ES_AUTOHSCROLL
+    RTEXT           "40 ms",48,319,113,35,8
 END
 
-16091 DIALOG DISCARDABLE 0, 0, 200, 90
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+16091 DIALOG 0, 0, 200, 90
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
 CAPTION "About WebPShop"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",1,171,7,11,14,NOT WS_VISIBLE | WS_DISABLED
     PUSHBUTTON      "Cancel",2,172,24,10,14,NOT WS_VISIBLE | WS_DISABLED
-    LTEXT           "WebPShop 0.2.1\nWebP 1.0.2\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019 Google LLC.",
-                    5,10,10,180,50
+    LTEXT           "WebPShop 0.3.0\nWebP 1.1.0\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2020 Google LLC.",5,10,10,180,50
     PUSHBUTTON      "developers.google.com/speed/webp",10,10,60,180,20
 END
 
-#endif    // English (U.S.) resources
-////////////////////////////////////////////////////////////////////////////////
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
 
 
 
 #ifndef APSTUDIO_INVOKED
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 //
-// Generated from the TEXTINCLUDE 2 resource.
+// Generated from the TEXTINCLUDE 3 resource.
 //
 #include "WebPShop.pipl"
 
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
+

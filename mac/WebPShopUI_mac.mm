@@ -124,6 +124,14 @@ void WebPShopDialog::HideItem(short item) {
   NSView* view = (NSView*)GetItem(item);
   if (view != nullptr) [view setHidden:YES];
 }
+void WebPShopDialog::EnableItem(short item) {
+  NSButton* view = (NSButton*)GetItem(item);
+  if (view != nullptr) [view setEnabled:YES];
+}
+void WebPShopDialog::DisableItem(short item) {
+  NSButton* view = (NSButton*)GetItem(item);
+  if (view != nullptr) [view setEnabled:NO];
+}
 
 //------------------------------------------------------------------------------
 
@@ -169,7 +177,8 @@ void WebPShopDialog::DrawRectBorder(uint8_t r, uint8_t g, uint8_t b,
                                     int left, int top, int right, int bottom,
                                     PaintingContext* const painting_context) {
   if (painting_context->proxy_view == nullptr) return;
-  NSView* proxy_view = (NSView*)painting_context->proxy_view;
+  WebPShopProxyView* proxy_view =
+      (WebPShopProxyView*)painting_context->proxy_view;
 
   NSRect border_rect = NSMakeRect(left, top, right - left, bottom - top);
   border_rect = [proxy_view convertTopLeftRectToCGContext:border_rect];
@@ -203,7 +212,8 @@ bool WebPShopDialog::DisplayImage(const ImageMemoryDesc& image,
     return false;
   }
   CGContextRef cg_context = (CGContext*)painting_context->cg_context;
-  NSView* proxy_view = (NSView*)painting_context->proxy_view;
+  WebPShopProxyView* proxy_view =
+      (WebPShopProxyView*)painting_context->proxy_view;
 
   CGColorSpaceRef color_space = CGColorSpaceCreateDeviceRGB();
   CGDataProviderRef data_provider = CGDataProviderCreateWithData(
@@ -288,8 +298,8 @@ void DoAboutBox(SPPluginRef plugin_ref) {
 
   [alert setMessageText:@"About WebPShop"];
   [alert setInformativeText:
-             @"WebPShop 0.2.1\nWebP 1.0.2\nA Photoshop plug-in for reading "
-             @"and writing WebP files.\nCopyright 2019 Google LLC."];
+             @"WebPShop 0.3.0\nWebP 1.1.0\nA Photoshop plug-in for reading "
+             @"and writing WebP files.\nCopyright 2019-2020 Google LLC."];
   [alert setAlertStyle:NSAlertStyleInformational];
 
   const NSModalResponse buttonPressed = [alert runModal];

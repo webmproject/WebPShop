@@ -102,6 +102,16 @@ resource 'PiPL'(ResourceID, plugInName " PiPL", purgeable){
      FormatICCFlags{iccCannotEmbedGray, iccCannotEmbedIndexed,
                     iccCannotEmbedRGB, iccCannotEmbedCMYK},
 
+     // XMPRead and XMPWrite properties would enable formatSelectorXMPRead
+	   // and formatSelectorXMPWrite which represent another way of handling
+	   // XMP metadata import/export. Currently it is done as EXIF: through
+	   // handle allocation and setPropertyProc().
+
+	   // No way of enabling the "ICC Profile" checkbox in the "Save As" window
+	   // was found. Currently it is configurable in the "WebPShop" window among
+	   // other WebP settings and internally handled in a similar way as EXIF and
+	   // XMP chunks, using the iCCprofileData handle.
+
      // Layer support is needed for reading animated WebPs into layers
      // (also it would be better to also load it into the timeline).
      FormatLayerSupport{doesSupportFormatLayers},
@@ -150,6 +160,30 @@ resource 'aete'(ResourceID, plugInName " dictionary", purgeable){
              keyWriteConfig_compression,
              typeInteger,
              "compression level",
+             flagsSingleProperty,
+
+             "Keep EXIF",
+             keyWriteConfig_keep_exif,
+             typeBoolean,
+             "keep EXIF metadata",
+             flagsSingleProperty,
+
+             "Keep XMP",
+             keyWriteConfig_keep_xmp,
+             typeBoolean,
+             "keep XMP metadata",
+             flagsSingleProperty,
+
+             "Keep Color Profile",
+             keyWriteConfig_keep_color_profile,
+             typeBoolean,
+             "keep color profile",
+             flagsSingleProperty,
+
+             "Infinite Loop",
+             keyWriteConfig_loop_forever,
+             typeBoolean,
+             "loop the animation forever",
              flagsSingleProperty,
 
              "Using POSIX I/O",
