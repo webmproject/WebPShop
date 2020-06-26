@@ -33,3 +33,9 @@
         "Keep XMP" and "Keep Color Profile" checkboxes.
     *   Tested on Windows Server 2016 Datacenter with Photoshop 2020
         (v 21.1.2) x64, Release.
+
+-   26/06/2020: v0.3.1
+
+    *   Fix inaccuracies in WebPShop.r resource file.
+    *   Fix PIUtilities.r MacOS ResMerger warning.
+    *   Add directions in README.md.

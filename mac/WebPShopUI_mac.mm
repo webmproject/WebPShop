@@ -298,7 +298,7 @@ void DoAboutBox(SPPluginRef plugin_ref) {
 
   [alert setMessageText:@"About WebPShop"];
   [alert setInformativeText:
-             @"WebPShop 0.3.0\nWebP 1.1.0\nA Photoshop plug-in for reading "
+             @"WebPShop 0.3.1\nWebP 1.1.0\nA Photoshop plug-in for reading "
              @"and writing WebP files.\nCopyright 2019-2020 Google LLC."];
   [alert setAlertStyle:NSAlertStyleInformational];
 

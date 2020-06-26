@@ -1,6 +1,6 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.3.0
+Current plug-in version: WebPShop 0.3.1
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
@@ -10,22 +10,27 @@ using the contents of this repository or contributing.
 
 ## Installation
 
-Current library version: WebP 1.1.0
-
-Put the file from the `bin` folder in the Photoshop plug-in directory
-(`C:\Program Files\Adobe\Adobe Photoshop\Plug-ins\WebPShop.8bi` for Windows x64,
-`Applications/Adobe Photoshop/Plug-ins/WebPShop.plugin` for Mac). Run Photoshop.
+Download the binary at https://github.com/webmproject/WebPShop/releases. \
+Direct link for Windows x64:
+https://github.com/webmproject/WebPShop/releases/download/v0.3.0/WebPShop_0_3_0_Win_x64.8bi \
+Direct link for MacOS (extract the ZIP archive afterwise):
+https://github.com/webmproject/WebPShop/releases/download/v0.3.0/WebPShop_0_3_0_Mac_x64.zip \
+Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
+to the Photoshop plug-in directory
+(`C:\Program Files\Adobe\Adobe Photoshop\Plug-ins\` for Windows x64,
+`Applications/Adobe Photoshop/Plug-ins/` for Mac). Run Photoshop.
 
 On macOS 10.15+, the prompt "WebPShop.plugin cannot be opened because
 the developer cannot be verified" can be bypassed by running the following
 in Terminal (Finder > Applications > Utilities):
 
 ```
-sudo xattr -r -d com.apple.quarantine \
-  /Applications/Adobe\ Photoshop\ 2020/Plug-ins/WebPShop.plugin
+sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2020/Plug-ins/WebPShop.plugin
 ```
 
 ## Build
+
+Current libwebp version: WebP 1.1.0
 
 Use Microsoft Visual Studio (2017 and above) for Windows and XCode for Mac.
 
@@ -81,6 +86,7 @@ The radio buttons offer several levels of compression effort:
 
 *   Only English is currently supported.
 *   Only "RGB Color" image mode is currently supported.
+*   WebP images cannot exceed 16383 x 16383 pixels.
 *   The Timeline data is not used; thus animations rely on layers for defining
     frames (set duration as "(123 ms)" in each layer's name), and they need to
     be rasterized before saving.
@@ -90,6 +96,33 @@ The radio buttons offer several levels of compression effort:
 *   This plug-in does not extend `Export As` neither `Save for Web`.
 *   Encoding and decoding are done in a single pass. It is not currently
     possible to cancel such actions, and it might take some time on big images.
+*   Only the latest Photoshop release is supported.
+
+## Troubleshooting
+
+If the plug-in is not detected or does not behave as expected, the steps below
+might help:
+
+*   The plug-in should be listed in the "Help > About Plug-In" submenu if it is
+    found by Photoshop.
+*   If it is undetected, disable any antivirus program or allow the plug-in
+    execution (including in MacOS and Windows built-in protections).
+*   If it is still undetected, try each of these folders (Windows paths): \
+
+        C:\Program Files\Common Files\Adobe\Plug-Ins\CC
+        C:\Program Files\Common Files\Adobe\Plug-Ins\CC\File Formats
+        C:\Program Files\Adobe\Adobe Photoshop 2020\Plug-ins
+
+*   If it is still undetected, remove all plug-ins from all folders and copy
+    WebPShop in only one of these folders, in case there is a plug-in conflict.
+    Restart the computer and/or Photoshop.
+*   If it is detected but there is no WebP entry in the Save menu, check that
+    WebP files can be at least opened (find one online such as this one:
+    https://www.gstatic.com/webp/gallery/4.sm.webp). The issue might come from
+    unsupported encoding settings, see the limitations above.
+
+If the issue still occurs, please file a bug at
+https://github.com/webmproject/WebPShop/issues
 
 ## Software architecture
 

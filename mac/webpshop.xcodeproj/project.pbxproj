@@ -10,7 +10,6 @@
 		64126BED09F97603006DF4E6 /* WebPShopScripting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126BE709F97603006DF4E6 /* WebPShopScripting.cpp */; };
 		64126BEE09F97603006DF4E6 /* WebPShop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126BEA09F97603006DF4E6 /* WebPShop.cpp */; };
 		64126BFE09F9774A006DF4E6 /* WebPShop.r in Rez */ = {isa = PBXBuildFile; fileRef = 64126BE809F97603006DF4E6 /* WebPShop.r */; };
-		64126C0209F9775D006DF4E6 /* PIUtilities.r in Rez */ = {isa = PBXBuildFile; fileRef = 64126B9A09F97565006DF4E6 /* PIUtilities.r */; };
 		64126C2B09F979EA006DF4E6 /* PIUSuites.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126C2A09F979EA006DF4E6 /* PIUSuites.cpp */; };
 		64126C3509F97A19006DF4E6 /* PIUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64126C3409F97A19006DF4E6 /* PIUtilities.cpp */; };
 		646B5CAA10D31664001A7C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646B5CA910D31664001A7C6E /* Cocoa.framework */; };
@@ -112,7 +111,6 @@
 		64126B8B09F97565006DF4E6 /* PIUI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUI.h; sourceTree = "<group>"; };
 		64126B8E09F97565006DF4E6 /* PIUSuites.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUSuites.h; sourceTree = "<group>"; };
 		64126B8F09F97565006DF4E6 /* PIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PIUtilities.h; sourceTree = "<group>"; };
-		64126B9A09F97565006DF4E6 /* PIUtilities.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = PIUtilities.r; sourceTree = "<group>"; };
 		64126BE609F97603006DF4E6 /* WebPShopUI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopUI.cpp; path = ../common/WebPShopUI.cpp; sourceTree = SOURCE_ROOT; };
 		64126BE709F97603006DF4E6 /* WebPShopScripting.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopScripting.cpp; path = ../common/WebPShopScripting.cpp; sourceTree = SOURCE_ROOT; };
 		64126BE809F97603006DF4E6 /* WebPShop.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = WebPShop.r; path = ../common/WebPShop.r; sourceTree = SOURCE_ROOT; };
@@ -368,7 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				E2880D630B0EECF5001C1C00 /* Info.plist */,
-				64126B9A09F97565006DF4E6 /* PIUtilities.r */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -459,7 +456,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				64126BFE09F9774A006DF4E6 /* WebPShop.r in Rez */,
-				64126C0209F9775D006DF4E6 /* PIUtilities.r in Rez */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +524,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				LIBRARY_SEARCH_PATHS = "../libwebp-1.1.0-mac-10.15/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.3.1;
 				OTHER_LDFLAGS = "-v";
 				PLUGIN_TYPE = 8BIF;
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.WebPShop;

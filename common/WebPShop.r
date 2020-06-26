@@ -17,8 +17,8 @@
 // Definitions -- Required by include files.
 //------------------------------------------------------------------------------
 
-#define plugInName "WebP"
-#define plugInCopyrightYear "2019"
+#define plugInName "WebPShop"
+#define plugInCopyrightYear "2020"
 #define plugInDescription \
   "A Photoshop plug-in for reading and writing WebP files."
 
@@ -28,27 +28,19 @@
 
 // Dictionary (aete) resources:
 
+#define webpshopResourceID 16000  // number seems standard
 #define vendorName "Google"
-#define plugInAETEComment "webpshop webp"
+#define plugInAETEComment "webp format module"
 
-#define plugInSuiteID 'sdK4'
-#define plugInClassID 'simP'
+#define plugInSuiteID 'gOOG'
+#define plugInClassID 'webP'
 #define plugInEventID typeNull  // must be this
 
 //------------------------------------------------------------------------------
 // Set up included files for Macintosh and Windows.
 //------------------------------------------------------------------------------
 
-#include "PIDefines.h"
-
-#if __PIMac__
 #include "PIGeneral.r"
-#include "PIUtilities.r"
-#elif defined(__PIWin__)
-#define Rez
-#include "PIGeneral.h"
-#include "PIUtilities.r"
-#endif
 
 #include "PIActions.h"
 #include "PITerminology.h"
@@ -59,33 +51,21 @@
 // PiPL resource
 //------------------------------------------------------------------------------
 
-resource 'PiPL'(ResourceID, plugInName " PiPL", purgeable){
+resource 'PiPL'(webpshopResourceID, plugInName " PiPL", purgeable){
     {Kind{ImageFormat}, Name{plugInName},
      Version{(latestFormatVersion << 16) | latestFormatSubVersion},
-
-     Component{ComponentNumber, plugInName},
-
-#ifdef __PIMac__
-     CodeMacIntel64{"PluginMain"},
-#else
-#if defined(_WIN64)
-     CodeWin64X86{"PluginMain"},
-#else
-     CodeWin32X86{"PluginMain"},
-#endif
-#endif
 
      // This plug-in can read and write via POSIX I/O routines
      SupportsPOSIXIO{},
 
      // ClassID, eventID, aete ID, uniqueString:
-     HasTerminology{plugInClassID, plugInEventID, ResourceID,
+     HasTerminology{plugInClassID, plugInEventID, webpshopResourceID,
                     vendorName " " plugInName},
 
      SupportedModes{noBitmap, noGrayScale, noIndexedColor, doesSupportRGBColor,
                     noCMYKColor, noHSLColor, noHSBColor, noMultichannel,
                     noDuotone, noLABColor},
-     EnableInfo{"in (PSHOP_ImageMode, RGBMode)"},
+     EnableInfo{"in (PSHOP_ImageMode, RGBMode, RGBColorMode)"},
 
      // WebP is limited to 16383 in width and height.
      PlugInMaxSize{16383, 16383}, FormatMaxSize{{16383, 16383}},
@@ -93,14 +73,16 @@ resource 'PiPL'(ResourceID, plugInName " PiPL", purgeable){
      FormatMaxChannels{{1, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24}},
 
      FmtFileType{'WEBP', '8BIM'},
-     // ReadTypes { { '8B1F', '    ' } },
-     FilteredTypes{{'8B1F', '    '}}, ReadExtensions{{'WEBP'}},
-     WriteExtensions{{'WEBP'}}, FilteredExtensions{{'WEBP'}},
+     ReadTypes{{'WEBP', '    '}},
+     // FilteredTypes{{'8B1F', '    '}},
+     ReadExtensions{{'WEBP'}},
+     WriteExtensions{{'WEBP'}},
+     FilteredExtensions{{'WEBP'}},
      FormatFlags{fmtSavesImageResources, fmtCanRead, fmtCanWrite,
                  fmtCanWriteIfRead, fmtCanWriteTransparency,
-                 fmtCanCreateThumbnail},
+                 fmtCannotCreateThumbnail},
      FormatICCFlags{iccCannotEmbedGray, iccCannotEmbedIndexed,
-                    iccCannotEmbedRGB, iccCannotEmbedCMYK},
+                    iccCanEmbedRGB, iccCannotEmbedCMYK},
 
      // XMPRead and XMPWrite properties would enable formatSelectorXMPRead
 	   // and formatSelectorXMPWrite which represent another way of handling
@@ -126,7 +108,7 @@ resource 'PiPL'(ResourceID, plugInName " PiPL", purgeable){
 // Dictionary (scripting) resource
 //------------------------------------------------------------------------------
 
-resource 'aete'(ResourceID, plugInName " dictionary", purgeable){
+resource 'aete'(webpshopResourceID, plugInName " dictionary", purgeable){
     1,
     0,
     english,
@@ -202,8 +184,9 @@ resource 'aete'(ResourceID, plugInName " dictionary", purgeable){
 // History resource
 //------------------------------------------------------------------------------
 
-resource StringResource(kHistoryEntry, "History",
-                        purgeable){plugInName ": ref num=^0."};
+resource 'STR '(kHistoryEntry, "History", purgeable){
+  plugInName ": ref num=^0."
+};
 
 //------------------------------------------------------------------------------
 

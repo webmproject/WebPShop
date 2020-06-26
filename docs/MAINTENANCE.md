@@ -21,9 +21,10 @@ To update the WebPShop **plug-in** version, do the following:
 
 *   Update the About box text in `win/WebPShop.rc` and
     `mac/WebPShopUI_mac.mm` to the new WebPShop version and to the current
-    copyright year.
+    copyright year (also in `common/WebPShop.r`).
 
-*   Update the WebPShop version in `README.md`.
+*   Update the WebPShop version in `README.md`, `mac/Info.plist` and
+    `win/project.pbxproj`.
 
 *   Describe the changes in `docs/NEWS`.
 
