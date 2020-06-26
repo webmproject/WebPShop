@@ -107,7 +107,7 @@ might help:
     found by Photoshop.
 *   If it is undetected, disable any antivirus program or allow the plug-in
     execution (including in MacOS and Windows built-in protections).
-*   If it is still undetected, try each of these folders (Windows paths): \
+*   If it is still undetected, try each of these folders (Windows paths):
 
         C:\Program Files\Common Files\Adobe\Plug-Ins\CC
         C:\Program Files\Common Files\Adobe\Plug-Ins\CC\File Formats
