@@ -103,6 +103,9 @@ The radio buttons offer several levels of compression effort:
 If the plug-in is not detected or does not behave as expected, the steps below
 might help:
 
+*   Update Photoshop to the latest version.
+*   Double-check that the plug-in binaries match the Operating System and the
+    architecture.
 *   The plug-in should be listed in the "Help > About Plug-In" submenu if it is
     found by Photoshop.
 *   If it is undetected, disable any antivirus program or allow the plug-in
