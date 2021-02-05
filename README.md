@@ -1,6 +1,6 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.3.1
+Current plug-in version: WebPShop 0.3.2
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
@@ -30,7 +30,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2020/Plug-
 
 ## Build
 
-Current libwebp version: WebP 1.1.0
+Current libwebp version: WebP 1.2.0
 
 Use Microsoft Visual Studio (2017 and above) for Windows and XCode for Mac.
 
@@ -85,7 +85,7 @@ The radio buttons offer several levels of compression effort:
 ## Limitations
 
 *   Only English is currently supported.
-*   Only "RGB Color" image mode is currently supported.
+*   Only "RGB Color" image mode at "8 Bits/Channel" is currently supported.
 *   WebP images cannot exceed 16383 x 16383 pixels.
 *   The Timeline data is not used; thus animations rely on layers for defining
     frames (set duration as "(123 ms)" in each layer's name), and they need to

@@ -136,9 +136,9 @@
 		7E37B807223BF4F700874549 /* WebPShopUIUtils_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPShopUIUtils_mac.h; sourceTree = "<group>"; };
 		7E37B809223BF5E500874549 /* WebPShopUIUtils_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebPShopUIUtils_mac.mm; sourceTree = "<group>"; };
 		7E93F710223C237800060FA2 /* WebPShopUI_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebPShopUI_mac.mm; sourceTree = "<group>"; };
-		7EAA027522317E6A00F2AA95 /* libwebpdemux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpdemux.a; path = "../libwebp-1.1.0-mac-10.15/lib/libwebpdemux.a"; sourceTree = "<group>"; };
-		7EAA027622317E6A00F2AA95 /* libwebpmux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpmux.a; path = "../libwebp-1.1.0-mac-10.15/lib/libwebpmux.a"; sourceTree = "<group>"; };
-		7EAA027722317E6A00F2AA95 /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = "../libwebp-1.1.0-mac-10.15/lib/libwebp.a"; sourceTree = "<group>"; };
+		7EAA027522317E6A00F2AA95 /* libwebpdemux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpdemux.a; path = "../libwebp-1.2.0-mac-10.15/lib/libwebpdemux.a"; sourceTree = "<group>"; };
+		7EAA027622317E6A00F2AA95 /* libwebpmux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpmux.a; path = "../libwebp-1.2.0-mac-10.15/lib/libwebpmux.a"; sourceTree = "<group>"; };
+		7EAA027722317E6A00F2AA95 /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = "../libwebp-1.2.0-mac-10.15/lib/libwebp.a"; sourceTree = "<group>"; };
 		8D01CCD20486CAD60068D4B7 /* WebPShop.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebPShop.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2880D630B0EECF5001C1C00 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4832D9C2191FA82005292AD /* WebPShopSelectorRead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebPShopSelectorRead.cpp; path = ../common/WebPShopSelectorRead.cpp; sourceTree = "<group>"; };
@@ -515,16 +515,16 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				HEADER_SEARCH_PATHS = (
-					"../libwebp-1.1.0-mac-10.15/include",
+					"../libwebp-1.2.0-mac-10.15/include",
 					../../common/includes,
 					../../../../photoshopapi/photoshop,
 					../../../common/includes,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = "../libwebp-1.1.0-mac-10.15/lib";
+				LIBRARY_SEARCH_PATHS = "../libwebp-1.2.0-mac-10.15/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.3.1;
+				MARKETING_VERSION = 0.3.2;
 				OTHER_LDFLAGS = "-v";
 				PLUGIN_TYPE = 8BIF;
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.WebPShop;
@@ -574,14 +574,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				LIBRARY_SEARCH_PATHS = "../libwebp-1.1.0-mac-10.15/lib";
+				LIBRARY_SEARCH_PATHS = "../libwebp-1.2.0-mac-10.15/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OBJROOT = "$(SYMROOT)../../Objs";
 				ONLY_ACTIVE_ARCH = YES;
 				REZ_PREFIX_FILE = "$(SRCROOT)/../../../common/includes/MachOMacrezXcode.h";
 				SDKROOT = macosx;
 				SYMROOT = ../../../Output/Mac/Debug/;
-				USER_HEADER_SEARCH_PATHS = "../libwebp-1.1.0-mac-10.15/include";
+				USER_HEADER_SEARCH_PATHS = "../libwebp-1.2.0-mac-10.15/include";
 				WRAPPER_EXTENSION = plugin;
 			};
 			name = Debug;

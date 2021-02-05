@@ -103,7 +103,6 @@ bool EncodeAllFrames(const std::vector<FrameMemoryDesc>& original_frames,
   }
   anim_encoder_options.anim_params.loop_count =
       write_config.loop_forever ? 0 : 1;
-  anim_encoder_options.allow_mixed = 1;
 
   WebPAnimEncoder* anim_encoder = WebPAnimEncoderNew(
       original_frames[0].image.width, original_frames[0].image.height,

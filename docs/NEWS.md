@@ -39,3 +39,10 @@
     *   Fix inaccuracies in WebPShop.r resource file.
     *   Fix PIUtilities.r MacOS ResMerger warning.
     *   Add directions in README.md.
+
+-   05/02/2021: v0.3.2
+
+    *   Updated to Adobe Photoshop Plug-In and Connection SDK 2021 v2.
+    *   Updated to WebP 1.2.0.
+    *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
+        (v 22.1.1) x64, Release.

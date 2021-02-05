@@ -102,7 +102,7 @@ FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",1,171,7,11,14,NOT WS_VISIBLE | WS_DISABLED
     PUSHBUTTON      "Cancel",2,172,24,10,14,NOT WS_VISIBLE | WS_DISABLED
-    LTEXT           "WebPShop 0.3.1\nWebP 1.1.0\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2020 Google LLC.",5,10,10,180,50
+    LTEXT           "WebPShop 0.3.2\nWebP 1.2.0\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2020 Google LLC.",5,10,10,180,50
     PUSHBUTTON      "developers.google.com/speed/webp",10,10,60,180,20
 END
 

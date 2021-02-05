@@ -55,6 +55,18 @@ resource 'PiPL'(webpshopResourceID, plugInName " PiPL", purgeable){
     {Kind{ImageFormat}, Name{plugInName},
      Version{(latestFormatVersion << 16) | latestFormatSubVersion},
 
+     Component{ComponentNumber, plugInName},
+
+#ifdef __PIMac__
+     CodeMacIntel64{"PluginMain"},
+#else
+#if defined(_WIN64)
+     CodeWin64X86{"PluginMain"},
+#else
+     CodeWin32X86{"PluginMain"},
+#endif
+#endif
+
      // This plug-in can read and write via POSIX I/O routines
      SupportsPOSIXIO{},
 
