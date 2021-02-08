@@ -40,7 +40,16 @@
 // Set up included files for Macintosh and Windows.
 //------------------------------------------------------------------------------
 
+#include "PIDefines.h"
+
+#if __PIMac__
 #include "PIGeneral.r"
+#include "PIUtilities.r"
+#elif defined(__PIWin__)
+#define Rez
+#include "PIGeneral.h"
+#include "PIUtilities.r"
+#endif
 
 #include "PIActions.h"
 #include "PITerminology.h"

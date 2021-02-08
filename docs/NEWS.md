@@ -44,5 +44,9 @@
 
     *   Updated to Adobe Photoshop Plug-In and Connection SDK 2021 v2.
     *   Updated to WebP 1.2.0.
+    *   Built with Microsoft Visual Studio Community 2017 15.8.3 and
+        Apple XCode 12.4 (12D4e).
     *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
         (v 22.1.1) x64, Release.
+    *   Tested on macOS Catalina Version 10.15.7 with Photoshop 2020
+        (v 21.2.4) and Photoshop 2021 (v 22.1.1) x64, Release.
