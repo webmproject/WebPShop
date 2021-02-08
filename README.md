@@ -12,9 +12,9 @@ using the contents of this repository or contributing.
 
 Download the binary at https://github.com/webmproject/WebPShop/releases. \
 Direct link for Windows x64:
-https://github.com/webmproject/WebPShop/releases/download/v0.3.0/WebPShop_0_3_0_Win_x64.8bi \
+https://github.com/webmproject/WebPShop/releases/download/v0.3.2/WebPShop_0_3_2_Win_x64.8bi \
 Direct link for MacOS (extract the ZIP archive afterwise):
-https://github.com/webmproject/WebPShop/releases/download/v0.3.0/WebPShop_0_3_0_Mac_x64.zip \
+https://github.com/webmproject/WebPShop/releases/download/v0.3.2/WebPShop_0_3_2_Mac_x64.zip \
 Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
 to the Photoshop plug-in directory
 (`C:\Program Files\Adobe\Adobe Photoshop\Plug-ins\` for Windows x64,
