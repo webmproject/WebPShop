@@ -524,7 +524,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				LIBRARY_SEARCH_PATHS = "../libwebp-1.2.0-mac-10.15/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 0.3.3;
 				OTHER_LDFLAGS = "-v";
 				PLUGIN_TYPE = 8BIF;
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.WebPShop;

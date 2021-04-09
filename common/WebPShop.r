@@ -41,6 +41,7 @@
 //------------------------------------------------------------------------------
 
 #include "PIDefines.h"
+#include "PIResourceDefines.h"
 
 #if __PIMac__
 #include "PIGeneral.r"
@@ -66,14 +67,15 @@ resource 'PiPL'(webpshopResourceID, plugInName " PiPL", purgeable){
 
      Component{ComponentNumber, plugInName},
 
-#ifdef __PIMac__
-     CodeMacIntel64{"PluginMain"},
-#else
-#if defined(_WIN64)
-     CodeWin64X86{"PluginMain"},
-#else
-     CodeWin32X86{"PluginMain"},
+#if Macintosh
+#if defined(__arm64__)
+    CodeMacARM64 { "PluginMain" },
 #endif
+#if defined(__x86_64__)
+    CodeMacIntel64 { "PluginMain" },
+#endif
+#elif MSWindows
+    CodeEntryPointWin64 { "PluginMain" },
 #endif
 
      // This plug-in can read and write via POSIX I/O routines

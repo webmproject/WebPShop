@@ -50,3 +50,11 @@
         (v 22.1.1) x64, Release.
     *   Tested on macOS Catalina Version 10.15.7 with Photoshop 2020
         (v 21.2.4) and Photoshop 2021 (v 22.1.1) x64, Release.
+
+-   09/04/2021: v0.3.3
+
+    *   Built with Microsoft Visual Studio Community 2019 16.9.2.
+    *   Removed the Windows x86 architecture target.
+    *   Added the Windows ARM64 architecture target.
+    *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
+        (v 22.3.0) x64, Release.
