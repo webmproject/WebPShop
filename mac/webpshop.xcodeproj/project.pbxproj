@@ -536,7 +536,6 @@
 				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = NO;
 			};
