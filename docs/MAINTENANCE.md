@@ -12,8 +12,7 @@ following:
 
 *   Update the WebP library version in `README.md`.
 
-*   Build WebPShop (Release) for each supported OS/plaform pair and replace
-    the old binaries in the `bin` folder of this repository.
+*   Build WebPShop (Release) for each supported OS/plaform pair and upload.
 
 ## Updating WebPShop version
 
@@ -28,5 +27,4 @@ To update the WebPShop **plug-in** version, do the following:
 
 *   Describe the changes in `docs/NEWS`.
 
-*   Build WebPShop (Release) for each supported OS/plaform pair and replace
-    the old binaries in the `bin` folder of this repository.
+*   Build WebPShop (Release) for each supported OS/plaform pair and upload.

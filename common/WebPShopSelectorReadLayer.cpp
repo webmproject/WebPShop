@@ -19,27 +19,11 @@
 
 void InitAnimDecoder(FormatRecordPtr format_record, Data* const data,
                      int16* const result) {
-  WebPAnimDecoderOptions options;
-  if (!WebPAnimDecoderOptionsInit(&options)) {
-    LOG("/!\\ WebPAnimDecoderOptionsInit() failed.");
-    *result = readErr;
-    return;
-  }
-  if (format_record->planes == 3) {
-    options.color_mode = MODE_BGR;
-  } else if (format_record->planes == 4) {
-    options.color_mode = MODE_BGRA;
-  } else {
-    LOG("/!\\ Unhandled number of planes (" << format_record->planes << ").");
-    *result = readErr;
-    return;
-  }
-
   WebPData webp_data;
   webp_data.bytes = (uint8_t*)data->file_data;
   webp_data.size = data->file_size;
 
-  data->anim_decoder = WebPAnimDecoderNew(&webp_data, &options);
+  data->anim_decoder = WebPAnimDecoderNew(&webp_data, nullptr);
   if (data->anim_decoder == nullptr) {
     LOG("/!\\ WebPAnimDecoderNew() failed.");
     *result = readErr;
@@ -64,6 +48,7 @@ void InitAnimDecoder(FormatRecordPtr format_record, Data* const data,
 
 void ReadOneFrame(FormatRecordPtr format_record, Data* const data,
                   int16* const result, int frame_counter) {
+  START_TIMER(ReadOneFrame);
   if (WebPAnimDecoderHasMoreFrames(data->anim_decoder)) {
     uint8_t* buf;
     int timestamp;
@@ -72,10 +57,17 @@ void ReadOneFrame(FormatRecordPtr format_record, Data* const data,
       *result = readErr;
       return;
     }
+    format_record->theRect.top = 0;
+    format_record->theRect.bottom = format_record->imageSize.v;
+    format_record->theRect.left = 0;
+    format_record->theRect.right = format_record->imageSize.h;
     format_record->theRect32.top = 0;
     format_record->theRect32.bottom = format_record->imageSize32.v;
     format_record->theRect32.left = 0;
     format_record->theRect32.right = format_record->imageSize32.h;
+    // Leave blendMode and opacity as is, it works.
+
+    SetStartAndContinueDecoding(format_record);
 
     format_record->data = buf;
 
@@ -83,20 +75,25 @@ void ReadOneFrame(FormatRecordPtr format_record, Data* const data,
     format_record->progressProc(1, 1);
     format_record->data = nullptr;
 
-    const int frame_duration = timestamp - data->last_frame_timestamp;
-    const size_t layer_name_buffer_length =
-        sizeof(data->layer_name_buffer) / sizeof(data->layer_name_buffer[0]);
-    PrintDuration(frame_counter, frame_duration, data->layer_name_buffer,
-                  layer_name_buffer_length);
-    format_record->layerName = data->layer_name_buffer;
-    data->last_frame_timestamp = timestamp;
+    // Only rename the layer if it is an animated WebP.
+    if (data->read_config.input.has_animation) {
+      const int frame_duration = timestamp - data->last_frame_timestamp;
+      const size_t layer_name_buffer_length =
+          sizeof(data->layer_name_buffer) / sizeof(data->layer_name_buffer[0]);
+      PrintDuration(frame_counter, frame_duration, data->layer_name_buffer,
+                    layer_name_buffer_length);
+      format_record->layerName = data->layer_name_buffer;
+      data->last_frame_timestamp = timestamp;
+    }
   } else {
     format_record->data = nullptr;
   }
+  STOP_TIMER(ReadOneFrame);
 }
 
 void ReleaseAnimDecoder(FormatRecordPtr format_record, Data* const data) {
   WebPAnimDecoderDelete(data->anim_decoder);
+  data->anim_decoder = nullptr;
   format_record->data = nullptr;
   Deallocate(&data->file_data);
 }
@@ -105,37 +102,21 @@ void ReleaseAnimDecoder(FormatRecordPtr format_record, Data* const data) {
 
 void DoReadLayerStart(FormatRecordPtr format_record, Data* const data,
                       int16* const result) {
-  if (*result != noErr && data->read_config.input.has_animation) {
-    ReleaseAnimDecoder(format_record, data);
-  }
+  if (*result != noErr) ReleaseAnimDecoder(format_record, data);
 }
 
 //------------------------------------------------------------------------------
 
 void DoReadLayerContinue(FormatRecordPtr format_record, Data* const data,
                          int16* const result) {
-  int frame_counter = (int)format_record->layerData;
-  if (data->read_config.input.has_animation) {
-    ReadOneFrame(format_record, data, result, frame_counter);
+  ReadOneFrame(format_record, data, result, format_record->layerData);
 
-    if (*result != noErr) ReleaseAnimDecoder(format_record, data);
-  } else {
-    if (frame_counter > 0) {
-      LOG("/!\\ frame_counter = " << frame_counter
-                                  << " but we are not expecting an animation.");
-      *result = writErr;
-    } else {
-      ReadOneImage(format_record, data, result);
-    }
-  }
+  if (*result != noErr) ReleaseAnimDecoder(format_record, data);
 }
 
 //------------------------------------------------------------------------------
 
 void DoReadLayerFinish(FormatRecordPtr format_record, Data* const data,
                        int16* const result) {
-  Deallocate(&format_record->data);
-  if (*result != noErr && data->read_config.input.has_animation) {
-    ReleaseAnimDecoder(format_record, data);
-  }
+  if (*result != noErr) ReleaseAnimDecoder(format_record, data);
 }

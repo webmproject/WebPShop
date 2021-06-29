@@ -58,3 +58,7 @@
     *   Added the Windows ARM64 architecture target.
     *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
         (v 22.3.0) x64, Release.
+
+-   29/06/2021: v0.3.4
+
+    *   Fixed the opening of animated WebP images as Smart Objects.

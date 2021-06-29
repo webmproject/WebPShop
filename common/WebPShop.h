@@ -272,14 +272,15 @@ OSErr SetHostMetadata(FormatRecordPtr format_record,
                       const Metadata metadata[Metadata::kNum]);
 
 // Decodes file opened by host into format_record->data.
-void ReadOneImage(FormatRecordPtr format_record, Data* const data,
-                  int16* const result);
-
 void InitAnimDecoder(FormatRecordPtr format_record, Data* const data,
                      int16* const result);
 void ReadOneFrame(FormatRecordPtr format_record, Data* const data,
                   int16* const result, int frame_counter);
 void ReleaseAnimDecoder(FormatRecordPtr format_record, Data* const data);
+
+// Sets FormatRecord members that should be defined in both the start and
+// continue selectors, according to PIFormat.h.
+void SetStartAndContinueDecoding(FormatRecordPtr format_record);
 
 //------------------------------------------------------------------------------
 // Animation utils

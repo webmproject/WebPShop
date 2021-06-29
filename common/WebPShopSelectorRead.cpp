@@ -17,54 +17,22 @@
 #include "WebPShopSelector.h"
 #include "webp/decode.h"
 
-void ReadOneImage(FormatRecordPtr format_record, Data* const data,
-                  int16* const result) {
-  START_TIMER(ReadOneImage);
+void SetStartAndContinueDecoding(FormatRecordPtr format_record) {
+  format_record->loPlane = 0;
+  format_record->hiPlane = format_record->planes - 1;
 
-  format_record->theRect32.top = 0;
-  format_record->theRect32.bottom = format_record->imageSize32.v;
-  format_record->theRect32.left = 0;
-  format_record->theRect32.right = format_record->imageSize32.h;
-
-  if (format_record->planes == 3) {
-    data->read_config.output.colorspace = MODE_BGR;
-  } else {
-    data->read_config.output.colorspace = MODE_BGRA;
-  }
-  data->read_config.output.u.RGBA.stride = format_record->rowBytes;
-  data->read_config.output.u.RGBA.size =
-      (size_t)(format_record->rowBytes * format_record->imageSize32.v);
-  data->read_config.output.is_external_memory = 1;
-
-  Allocate(data->read_config.output.u.RGBA.size, &format_record->data, result);
-  data->read_config.output.u.RGBA.rgba = (uint8_t*)format_record->data;
-
-  LOG("Uncompressed size: " << data->read_config.output.u.RGBA.size << " B");
-
-  if (*result == noErr) {
-    VP8StatusCode status = WebPDecode((uint8_t*)data->file_data,
-                                      data->file_size, &data->read_config);
-    LOG("WebPDecode (" << status << ")");
-    if (status != VP8_STATUS_OK) {
-      *result = readErr;
-    }
-  }
-
-  data->read_config.output.u.RGBA.rgba = nullptr;
-
-  if (*result == noErr) *result = format_record->advanceState();
-  format_record->progressProc(1, 1);
-
-  Deallocate(&format_record->data);
-
-  STOP_TIMER(ReadOneImage);
+  format_record->planeBytes = format_record->depth / 8;
+  format_record->colBytes = format_record->planeBytes * format_record->planes;
+  format_record->rowBytes =
+      format_record->colBytes * format_record->imageSize32.h;
 }
 
 //------------------------------------------------------------------------------
 
 void DoReadPrepare(FormatRecordPtr format_record, Data* const data,
                    int16* const result) {
-  format_record->maxData = 0;
+  format_record->maxData = 0;  // The maximum number of bytes Photoshop can free
+                               // up for a plug-in to use.
   LoadPOSIXConfig(format_record, result);
 }
 
@@ -102,31 +70,35 @@ void DoReadStart(FormatRecordPtr format_record, Data* const data,
   DeallocateMetadata(data->metadata);
 
   if (*result == noErr) {
+    format_record->PluginUsing32BitCoordinates =
+        format_record->HostSupports32BitCoordinates;
     format_record->imageMode = plugInModeRGBColor;
+    if (!(format_record->hostModes & (1 << format_record->imageMode))) {
+      LOG("/!\\ Unsupported plugInModeRGBColor");
+    }
+    format_record->imageSize.h = data->read_config.input.width;
+    format_record->imageSize.v = data->read_config.input.height;
     format_record->imageSize32.h = data->read_config.input.width;
     format_record->imageSize32.v = data->read_config.input.height;
     format_record->depth = sizeof(uint8_t) * 8;
-    format_record->planes = data->read_config.input.has_alpha ? 4 : 3;
+    // WebPAnimDecoderNew() only outputs RGBA or BGRA.
+    format_record->planes = 4;
 
     format_record->imageHRes = 72;
     format_record->imageVRes = 72;
 
-    format_record->loPlane = 0;
-    format_record->hiPlane = format_record->planes - 1;
-    format_record->planeMap[0] = 2;  // BGRA
+    format_record->planeMap[0] = 0;  // RGBA
     format_record->planeMap[1] = 1;
-    format_record->planeMap[2] = 0;
+    format_record->planeMap[2] = 2;
     format_record->planeMap[3] = 3;
 
-    format_record->planeBytes = format_record->depth / 8;
-    format_record->colBytes = format_record->planeBytes * format_record->planes;
-    format_record->rowBytes =
-        (int16)format_record->colBytes * format_record->imageSize32.h;
+    SetStartAndContinueDecoding(format_record);
 
-    if (data->read_config.input.has_alpha) {
-      format_record->transparencyPlane = 3;
-      format_record->transparencyMatting = 0;
-    }
+    LOG("Host");
+    LOG("  transparencyPlane: " << format_record->transparencyPlane);
+
+    format_record->transparencyPlane = 3;
+    format_record->transparencyMatting = 0;
 
     LOG("Params (" << data->read_config.input.width << "x"
                    << data->read_config.input.height << "px)");
@@ -144,28 +116,29 @@ void DoReadStart(FormatRecordPtr format_record, Data* const data,
 
     LOG("  transparencyPlane: " << format_record->transparencyPlane);
     LOG("  transparencyMatting: " << format_record->transparencyMatting);
+    LOG("  transparentIndex: " << format_record->transparentIndex);
+
+    LOG("  hostInSecondaryThread: " << (int)format_record->hostInSecondaryThread);
+    LOG("  openAsSmartObject: " << (int)format_record->openAsSmartObject);
   }
 
-  if (data->read_config.input.has_animation) {
-    // Switch to animation.
-    if (*result == noErr) InitAnimDecoder(format_record, data, result);
-  } else {
-    // We could force DoReadContinue() but alpha won't work.
-    // format_record->layerData = 0;
-    // Instead we call DoReadStartLayer() with one frame.
-    format_record->layerData = 1;
-  }
+  // Going through formatSelectorReadContinue discards the alpha samples for
+  // some reason. Treat all images, including still ones, as animations to use
+  // formatSelectorReadLayerContinue which supports transparency.
+  if (*result == noErr) InitAnimDecoder(format_record, data, result);
+  // format_record->layerData = 0;  // Uncomment for formatSelectorReadContinue
 
   if (*result != noErr) Deallocate(&data->file_data);
 }
 
 //------------------------------------------------------------------------------
 
-// FormatLayerSupport in WebPShop.r redirects to DoReadLayerStart().
-// DoReadContinue() should not be called, but it's here just in case.
+// FormatLayerSupport in WebPShop.r redirects to DoReadLayerStart() for
+// animations. DoReadContinue() is called only for Smart Objects.
 void DoReadContinue(FormatRecordPtr format_record, Data* const data,
                     int16* const result) {
-  ReadOneImage(format_record, data, result);
+  ReadOneFrame(format_record, data, result, /*frame_counter=*/0);
+  if (*result != noErr) ReleaseAnimDecoder(format_record, data);
 
   Deallocate(&data->file_data);
 }
@@ -174,9 +147,7 @@ void DoReadContinue(FormatRecordPtr format_record, Data* const data,
 
 void DoReadFinish(FormatRecordPtr format_record, Data* const data,
                   int16* const result) {
-  if (format_record->layerData > 0) {
-    ReleaseAnimDecoder(format_record, data);
-  }
+  ReleaseAnimDecoder(format_record, data);
 
   Deallocate(&format_record->data);
   Deallocate(&data->file_data);

@@ -20,7 +20,8 @@
 
 void DoEstimatePrepare(FormatRecordPtr format_record, Data* const data,
                        int16* const result) {
-  format_record->maxData = 0;
+  format_record->maxData = 0;  // The maximum number of bytes Photoshop can free
+                               // up for a plug-in to use.
 }
 
 //------------------------------------------------------------------------------
