@@ -26,19 +26,12 @@ void DoWritePrepare(FormatRecordPtr format_record, Data* const data,
 
 void DoWriteStart(FormatRecordPtr format_record, Data* const data,
                   int16* const result) {
-  format_record->loPlane = 0;
-  format_record->hiPlane = format_record->planes - 1;
   format_record->planeMap[0] = 2;  // BGRA
   format_record->planeMap[1] = 1;
   format_record->planeMap[2] = 0;
   format_record->planeMap[3] = 3;
 
-  format_record->planeBytes =
-      (int32)(format_record->depth / (sizeof(uint8_t) * 8));
-  format_record->colBytes =
-      (int16)(format_record->planeBytes * format_record->planes);
-  format_record->rowBytes =
-      format_record->colBytes * format_record->imageSize32.h;
+  SetPlaneColRowBytes(format_record);
 
   LOG("layerData: " << format_record->layerData);
   LOG("loPlane: " << format_record->loPlane);

@@ -65,6 +65,7 @@ VRect GetCenteredRectInArea(const VRect& area, int32 width, int32 height);
 VRect GetCropAreaRectInWindow(const VRect& proxy_area_rect_in_window);
 VRect GetScaleAreaRectInWindow(const VRect& proxy_area_rect_in_window);
 std::string DataSizeToString(size_t data_size);
+void SetErrorString(FormatRecordPtr format_record, const std::string& str);
 
 //------------------------------------------------------------------------------
 // UI elements (inspired from Adobe SDK)
@@ -130,6 +131,7 @@ class WebPShopDialog : public PIDialog {
 
   // Before encoding
   const std::vector<FrameMemoryDesc>& original_frames_;
+  const bool original_frames_were_converted_to_8b_;
   // After encoding
   WebPData* const encoded_data_;
   // After decoding (for proxy)
@@ -167,6 +169,7 @@ class WebPShopDialog : public PIDialog {
   WebPShopDialog(const WriteConfig& write_config,
                  const Metadata metadata[Metadata::kNum],
                  const std::vector<FrameMemoryDesc>& original_frames,
+                 bool original_frames_were_converted_to_8b,
                  WebPData* const encoded_data,
                  DisplayPixelsProc display_pixels_proc)
       : PIDialog(),
@@ -187,6 +190,8 @@ class WebPShopDialog : public PIDialog {
         frame_index_(0),
         selection_in_compressed_frame_(),
         original_frames_(original_frames),
+        original_frames_were_converted_to_8b_(
+            original_frames_were_converted_to_8b),
         encoded_data_(encoded_data),
         compressed_frames_(),
         scaled_compressed_frames_(),

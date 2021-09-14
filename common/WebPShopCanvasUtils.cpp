@@ -57,6 +57,13 @@ static int CountChannels(const ReadChannelDesc* rgb_channels,
 static void CopyChannel(Data* const data, int16* const result,
                         const ReadChannelDesc* const channel,
                         ImageMemoryDesc* const destination) {
+  if (channel->port == nullptr) {
+    LOG("/!\\ The channel has no port.");
+    *result = writErr;
+    return;
+  }
+
+  // BGRA order.
   switch (channel->channelType) {
     case ctRed: {
       destination->pixels.bitOffset = channel->depth * 2;
@@ -81,12 +88,6 @@ static void CopyChannel(Data* const data, int16* const result,
     }
   }
 
-  if (channel->port == nullptr) {
-    LOG("/!\\ The channel has no port.");
-    *result = writErr;
-    return;
-  }
-
   Boolean canRead = false;
   if (data->sPSChannelPortsSuite == nullptr ||
       data->sPSChannelPortsSuite->CanRead == nullptr ||
@@ -105,6 +106,8 @@ static void CopyChannel(Data* const data, int16* const result,
   if (data->sPSChannelPortsSuite->ReadPixelsFromLevel(
           channel->port, 0, &read_rect, &destination->pixels)) {
     LOG("/!\\ ReadPixelsFromLevel() failed.");
+    LOG("Channel " << channel->channelType);
+    LOG("  depth: " << channel->depth << " / " << destination->pixels.depth);
     *result = errPlugInHostInsufficient;
   } else if (GetWidth(read_rect) != destination->width ||
              GetHeight(read_rect) != destination->height) {
@@ -121,7 +124,7 @@ static void CopyChannel(Data* const data, int16* const result,
 static void CopyChannels(Data* const data, int16* const result,
                          const ReadChannelDesc* rgb_channels,
                          const ReadChannelDesc* a_channels, int32 canvas_width,
-                         int32 canvas_height,
+                         int32 canvas_height, int32 bit_depth,
                          ImageMemoryDesc* const destination) {
   if (rgb_channels == nullptr || destination == nullptr) {
     LOG("/!\\ Source or destination is null.");
@@ -136,20 +139,27 @@ static void CopyChannels(Data* const data, int16* const result,
     return;
   }
 
-  AllocateImage(destination, canvas_width, canvas_height, 4);
-  if (*result != noErr) return;
-
-  const size_t data_size =
-      (size_t)(destination->pixels.rowBits / 8 * destination->height);
-  // Some channels might be missing (alpha), fill with white/opaque.
-  memset(destination->pixels.data, 0xff, data_size);
+  // The pixels can only be extracted with their original bit depth.
+  // Four 8-bit channels are needed by WebPEncode() so either allocate them
+  // directly or just what is necessary and downscale afterwards.
+  // TODO: Modify CopyChannel() to read line by line to avoid allocating
+  //       the whole canvas twice.
+  ImageMemoryDesc destination_16b_or_32b;
+  ImageMemoryDesc* const tmp_dst =
+      (bit_depth == 8) ? destination : &destination_16b_or_32b;
+  if (!AllocateImage(tmp_dst, canvas_width, canvas_height,
+                     (bit_depth == 8) ? 4 : num_channels, bit_depth)) {
+    LOG("/!\\ AllocateImage() failed.");
+    *result = memFullErr;
+    return;
+  }
 
   const ReadChannelDesc* channel = rgb_channels;
   size_t channel_index = 0;
 
   while (channel != nullptr && channel_index < MAX_NUM_BROWSED_CHANNELS &&
          *result == noErr) {
-    CopyChannel(data, result, channel, destination);
+    CopyChannel(data, result, channel, tmp_dst);
 
     ++channel_index;
     channel = channel->next;
@@ -160,11 +170,32 @@ static void CopyChannels(Data* const data, int16* const result,
 
   while (channel != nullptr && channel_index < MAX_NUM_BROWSED_CHANNELS &&
          *result == noErr) {
-    CopyChannel(data, result, channel, destination);
+    CopyChannel(data, result, channel, tmp_dst);
 
     ++channel_index;
     channel = channel->next;
   }
+
+  if (num_channels == 3 && tmp_dst->pixels.depth == 8) {
+    for (size_t y = 0; y < tmp_dst->height; ++y) {
+      uint8_t* dst_data = reinterpret_cast<uint8_t*>(tmp_dst->pixels.data) +
+                          y * (tmp_dst->pixels.rowBits / 8) +
+                          /*channel=*/3 * (tmp_dst->pixels.depth / 8);
+      for (size_t x = 0; x < tmp_dst->width;
+           ++x, dst_data += tmp_dst->pixels.colBits / 8) {
+        *dst_data = 255;  // Missing opaque alpha channel.
+      }
+    }
+  }
+
+  if (tmp_dst != destination &&
+      !To8bit(destination_16b_or_32b,
+              /*add_alpha=*/(destination_16b_or_32b.num_channels < 4),
+              destination)) {
+    *result = writErr;
+  }
+
+  DeallocateImage(&destination_16b_or_32b);
 }
 
 //------------------------------------------------------------------------------
@@ -172,7 +203,8 @@ static void CopyChannels(Data* const data, int16* const result,
 static bool GetDocumentDimensions(FormatRecordPtr format_record,
                                   int16* const result,
                                   int32* const canvas_width,
-                                  int32* const canvas_height) {
+                                  int32* const canvas_height,
+                                  int32* const bit_depth) {
   if (format_record == nullptr || format_record->documentInfo == nullptr ||
       canvas_width == nullptr || canvas_height == nullptr) {
     LOG("/!\\ Unable to access document info or output.");
@@ -181,6 +213,7 @@ static bool GetDocumentDimensions(FormatRecordPtr format_record,
   }
   *canvas_width = GetWidth(format_record->documentInfo->bounds);
   *canvas_height = GetHeight(format_record->documentInfo->bounds);
+  *bit_depth = format_record->documentInfo->depth;
   if (*canvas_width <= 0 || *canvas_height <= 0) {
     LOG("/!\\ Width or height <= 0.");
     *result = writErr;
@@ -193,16 +226,16 @@ void CopyWholeCanvas(FormatRecordPtr format_record, Data* const data,
                      int16* const result, ImageMemoryDesc* const destination) {
   START_TIMER(CopyWholeCanvas);
 
-  int32 canvas_width, canvas_height;
+  int32 canvas_width, canvas_height, bit_depth;
   if (!GetDocumentDimensions(format_record, result, &canvas_width,
-                             &canvas_height)) {
+                             &canvas_height, &bit_depth)) {
     return;
   }
 
   CopyChannels(data, result,
                format_record->documentInfo->mergedCompositeChannels,
                format_record->documentInfo->mergedTransparency, canvas_width,
-               canvas_height, destination);
+               canvas_height, bit_depth, destination);
   LOG("Copied " << destination->num_channels << " channels.");
 
   STOP_TIMER(CopyWholeCanvas);
@@ -219,9 +252,9 @@ void CopyAllLayers(FormatRecordPtr format_record, Data* const data,
     return;
   }
 
-  int32 canvas_width, canvas_height;
+  int32 canvas_width, canvas_height, bit_depth;
   if (!GetDocumentDimensions(format_record, result, &canvas_width,
-                             &canvas_height)) {
+                             &canvas_height, &bit_depth)) {
     return;
   }
 
@@ -251,7 +284,7 @@ void CopyAllLayers(FormatRecordPtr format_record, Data* const data,
 
       CopyChannels(data, result, layer_desc->compositeChannelsList,
                    layer_desc->transparency, canvas_width, canvas_height,
-                   &frame.image);
+                   bit_depth, &frame.image);
     }
     layer_desc = layer_desc->next;
     ++layer_count;

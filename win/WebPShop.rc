@@ -71,7 +71,7 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&OK",1,312,6,50,14
     PUSHBUTTON      "&Cancel",2,312,23,50,14
-    LTEXT           "WebP settings:",5,6,6,92,8
+    LTEXT           "WebP settings:",5,6,6,250,8
     GROUPBOX        "Quality",10,6,18,204,54
     CONTROL         "",11,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,40,30,100,15
     EDITTEXT        12,174,30,24,14,ES_CENTER | ES_AUTOHSCROLL
@@ -102,7 +102,7 @@ FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",1,171,7,11,14,NOT WS_VISIBLE | WS_DISABLED
     PUSHBUTTON      "Cancel",2,172,24,10,14,NOT WS_VISIBLE | WS_DISABLED
-    LTEXT           "WebPShop 0.3.4\nWebP 1.2.0\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2021 Google LLC.",5,10,10,180,50
+    LTEXT           "WebPShop 0.4.0\nWebP 1.2.1\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2021 Google LLC.",5,10,10,180,50
     PUSHBUTTON      "developers.google.com/speed/webp",10,10,60,180,20
 END
 

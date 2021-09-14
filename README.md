@@ -32,7 +32,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2021/Plug-
 
 Current libwebp version: WebP 1.2.0
 
-Use Microsoft Visual Studio (2017 and above) for Windows and XCode for Mac.
+Use Microsoft Visual Studio (2019 and above) for Windows and XCode for Mac.
 
 *   Download the latest Adobe Photoshop Plug-In and Connection SDK at
     https://console.adobe.io/downloads/ps,

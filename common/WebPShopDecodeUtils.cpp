@@ -38,7 +38,8 @@ bool DecodeOneImage(const WebPData& encoded_data,
     return false;
   }
   if (!AllocateImage(compressed_image, decoder_config.input.width,
-                     decoder_config.input.height, 4)) {
+                     decoder_config.input.height, /*num_channels=*/4,
+                     /*bit_depth=*/8)) {
     LOG("/!\\ AllocateImage failed.");
     return false;
   }

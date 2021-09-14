@@ -69,4 +69,16 @@ std::string DataSizeToString(size_t data_size) {
          " MB";
 }
 
+void SetErrorString(FormatRecordPtr format_record, const std::string& str) {
+  if (format_record->errorString != nullptr && str.length() < 255) {
+    Str255& errorString = *format_record->errorString;
+    errorString[0] = static_cast<unsigned char>(str.length());
+    std::copy(str.c_str(), str.c_str() + str.length() + 1,  // Include '\0'.
+              reinterpret_cast<char*>(errorString + 1));
+    LOG("errorString: " << str);
+  } else {
+    LOG("errorString (not set): " << str);
+  }
+}
+
 //------------------------------------------------------------------------------

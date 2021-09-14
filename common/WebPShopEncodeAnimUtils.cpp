@@ -76,10 +76,8 @@ bool EncodeAllFrames(const std::vector<FrameMemoryDesc>& original_frames,
                      WebPData* const encoded_data) {
   START_TIMER(EncodeAllFrames);
 
-  if (original_frames.empty() || original_frames[0].image.width < 1 ||
-      original_frames[0].image.height < 1 ||
-      original_frames[0].image.num_channels != 4 || encoded_data == nullptr) {
-    LOG("/!\\ Source is null or incompatible.");
+  if (original_frames.empty() || encoded_data == nullptr) {
+    LOG("/!\\ Bad input/output.");
     return false;
   }
 
@@ -116,11 +114,11 @@ bool EncodeAllFrames(const std::vector<FrameMemoryDesc>& original_frames,
 
   for (size_t i = 0; i < original_frames.size(); ++i) {
     const FrameMemoryDesc& frame = original_frames[i];
-    pic.use_argb = 1;
-    pic.width = frame.image.width;
-    pic.height = frame.image.height;
-    pic.argb_stride = pic.width;
-    pic.argb = (uint32_t*)frame.image.pixels.data;  // Will not be modified.
+    if (!CastToWebPPicture(config, frame.image, &pic)) {
+      WebPPictureFree(&pic);
+      WebPAnimEncoderDelete(anim_encoder);
+      return false;
+    }
 
     if (!WebPAnimEncoderAdd(anim_encoder, &pic, timestamp_ms, &config)) {
       LOG("/!\\ WebPAnimEncoderAdd failed (" << pic.error_code << ").");

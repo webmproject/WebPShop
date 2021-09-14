@@ -85,10 +85,16 @@ resource 'PiPL'(webpshopResourceID, plugInName " PiPL", purgeable){
      HasTerminology{plugInClassID, plugInEventID, webpshopResourceID,
                     vendorName " " plugInName},
 
-     SupportedModes{noBitmap, noGrayScale, noIndexedColor, doesSupportRGBColor,
-                    noCMYKColor, noHSLColor, noHSBColor, noMultichannel,
-                    noDuotone, noLABColor},
-     EnableInfo{"in (PSHOP_ImageMode, RGBMode, RGBColorMode)"},
+     // Show or hide the format when saving in a given Image Mode.
+     // Always show but display an error in DoOptionsStart() if not RGB.
+     SupportedModes{doesSupportBitmap, doesSupportGrayScale,
+                    doesSupportIndexedColor, doesSupportRGBColor,
+                    doesSupportCMYKColor, doesSupportHSLColor,
+                    doesSupportHSBColor, doesSupportMultichannel,
+                    doesSupportDuotone, doesSupportLABColor},
+     // "EnableInfo and SupportedModes should always match" according to
+     // PIGeneral.h File Reference, but SimpleFormat.r just uses "true".
+     EnableInfo{"true"},
 
      // WebP is limited to 16383 in width and height.
      PlugInMaxSize{16383, 16383}, FormatMaxSize{{16383, 16383}},
@@ -108,14 +114,14 @@ resource 'PiPL'(webpshopResourceID, plugInName " PiPL", purgeable){
                     iccCanEmbedRGB, iccCannotEmbedCMYK},
 
      // XMPRead and XMPWrite properties would enable formatSelectorXMPRead
-	   // and formatSelectorXMPWrite which represent another way of handling
-	   // XMP metadata import/export. Currently it is done as EXIF: through
-	   // handle allocation and setPropertyProc().
+     // and formatSelectorXMPWrite which represent another way of handling
+     // XMP metadata import/export. Currently it is done as EXIF: through
+     // handle allocation and setPropertyProc().
 
-	   // No way of enabling the "ICC Profile" checkbox in the "Save As" window
-	   // was found. Currently it is configurable in the "WebPShop" window among
-	   // other WebP settings and internally handled in a similar way as EXIF and
-	   // XMP chunks, using the iCCprofileData handle.
+     // No way of enabling the "ICC Profile" checkbox in the "Save As" window
+     // was found. Currently it is configurable in the "WebPShop" window among
+     // other WebP settings and internally handled in a similar way as EXIF and
+     // XMP chunks, using the iCCprofileData handle.
 
      // Layer support is needed for reading animated WebPs into layers
      // (also it would be better to also load it into the timeline).

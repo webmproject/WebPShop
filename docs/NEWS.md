@@ -62,3 +62,13 @@
 -   29/06/2021: v0.3.4
 
     *   Fixed the opening of animated WebP images as Smart Objects.
+
+-   14/09/2021: v0.4.0
+
+    *   Updated to WebP 1.2.1.
+    *   Added 16 and 32 bits/channel support.
+    *   Display an error prompt instead of hiding WebP export when
+        saving an image of another Mode than RGB Color.
+    *   Built with Microsoft Visual Studio Community 2019 16.11.0.
+    *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
+        (v 22.5.1) x64, Release.

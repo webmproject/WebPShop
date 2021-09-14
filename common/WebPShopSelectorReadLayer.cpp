@@ -67,7 +67,7 @@ void ReadOneFrame(FormatRecordPtr format_record, Data* const data,
     format_record->theRect32.right = format_record->imageSize32.h;
     // Leave blendMode and opacity as is, it works.
 
-    SetStartAndContinueDecoding(format_record);
+    SetPlaneColRowBytes(format_record);
 
     format_record->data = buf;
 

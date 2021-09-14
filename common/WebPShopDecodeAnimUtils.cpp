@@ -84,7 +84,8 @@ bool DecodeAllFrames(const WebPData& encoded_data,
     compressed_frame.duration_ms = timestamp - last_frame_timestamp_ms;
 
     if (!AllocateImage(&compressed_frame.image, (int32)info.canvas_width,
-                       (int32)info.canvas_height, 4)) {
+                       (int32)info.canvas_height, /*num_channels=*/4,
+                       /*bit_depth=*/8)) {
       LOG("/!\\ AllocateImage failed.");
       WebPAnimDecoderDelete(anim_decoder);
       return false;

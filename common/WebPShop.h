@@ -124,20 +124,17 @@ struct Data {
 
 // Stores an image.
 struct ImageMemoryDesc {
-  PixelMemoryDesc pixels;
-  int32 width;
-  int32 height;
-  int num_channels;
-  int32 mode;
-
-  ImageMemoryDesc() { pixels.data = nullptr; }
-  virtual ~ImageMemoryDesc() {}
+  PixelMemoryDesc pixels = {nullptr, 0, 0, 0, 0};
+  int32 width = 0;
+  int32 height = 0;
+  int num_channels = 0;
+  int32 mode = 0;
 };
 
 // Stores a frame (image with a duration).
 struct FrameMemoryDesc {
   ImageMemoryDesc image;
-  int duration_ms;
+  int duration_ms = 0;
 };
 
 //------------------------------------------------------------------------------
@@ -147,6 +144,7 @@ struct FrameMemoryDesc {
 bool DoUI(WriteConfig* const write_config,
           const Metadata metadata[Metadata::kNum], SPPluginRef plugin_ref,
           const std::vector<FrameMemoryDesc>& original_frames,
+          bool original_frames_were_converted_to_8b,
           WebPData* const encoded_data, DisplayPixelsProc display_pixels_proc);
 void DoAboutBox(SPPluginRef plugin_ref);
 
@@ -189,7 +187,7 @@ void Deallocate(void** const buffer);
 // Image utils
 
 bool AllocateImage(ImageMemoryDesc* const image, int32 width, int32 height,
-                   int num_channels);
+                   int num_channels, int32 bit_depth);
 void DeallocateImage(ImageMemoryDesc* const image);
 void DeallocateMetadata(Metadata metadata[Metadata::kNum]);
 
@@ -202,6 +200,8 @@ bool Scale(const ImageMemoryDesc& src, ImageMemoryDesc* const dst,
 bool Crop(const ImageMemoryDesc& src, ImageMemoryDesc* const dst,
           size_t crop_width, size_t crop_height, size_t crop_left,
           size_t crop_top);
+bool To8bit(const ImageMemoryDesc& src, bool add_alpha,
+            ImageMemoryDesc* const dst);
 
 //------------------------------------------------------------------------------
 // Dimensions utils
@@ -234,6 +234,12 @@ void CopyAllLayers(FormatRecordPtr format_record, Data* const data,
 
 // Fills config parameters with settings in write_config.
 void SetWebPConfig(WebPConfig* const config, const WriteConfig& write_config);
+
+// Wraps an ImageMemoryDesc into a WebPPicture.
+// WebPPictureInit() must be called on 'dst' prior to calling this and
+// WebPPictureFree() must be called afterwards.
+bool CastToWebPPicture(const WebPConfig& config, const ImageMemoryDesc& src,
+                       WebPPicture* const dst);
 
 // Encodes original_image into encoded_data.
 bool EncodeOneImage(const ImageMemoryDesc& original_image,
@@ -280,7 +286,7 @@ void ReleaseAnimDecoder(FormatRecordPtr format_record, Data* const data);
 
 // Sets FormatRecord members that should be defined in both the start and
 // continue selectors, according to PIFormat.h.
-void SetStartAndContinueDecoding(FormatRecordPtr format_record);
+void SetPlaneColRowBytes(FormatRecordPtr format_record);
 
 //------------------------------------------------------------------------------
 // Animation utils

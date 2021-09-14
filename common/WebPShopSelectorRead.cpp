@@ -17,7 +17,7 @@
 #include "WebPShopSelector.h"
 #include "webp/decode.h"
 
-void SetStartAndContinueDecoding(FormatRecordPtr format_record) {
+void SetPlaneColRowBytes(FormatRecordPtr format_record) {
   format_record->loPlane = 0;
   format_record->hiPlane = format_record->planes - 1;
 
@@ -74,7 +74,7 @@ void DoReadStart(FormatRecordPtr format_record, Data* const data,
         format_record->HostSupports32BitCoordinates;
     format_record->imageMode = plugInModeRGBColor;
     if (!(format_record->hostModes & (1 << format_record->imageMode))) {
-      LOG("/!\\ Unsupported plugInModeRGBColor");
+      LOG("/!\\ Unsupported plugInModeRGBColor");  // Unlikely.
     }
     format_record->imageSize.h = data->read_config.input.width;
     format_record->imageSize.v = data->read_config.input.height;
@@ -92,7 +92,7 @@ void DoReadStart(FormatRecordPtr format_record, Data* const data,
     format_record->planeMap[2] = 2;
     format_record->planeMap[3] = 3;
 
-    SetStartAndContinueDecoding(format_record);
+    SetPlaneColRowBytes(format_record);
 
     LOG("Host");
     LOG("  transparencyPlane: " << format_record->transparencyPlane);
@@ -118,7 +118,7 @@ void DoReadStart(FormatRecordPtr format_record, Data* const data,
     LOG("  transparencyMatting: " << format_record->transparencyMatting);
     LOG("  transparentIndex: " << format_record->transparentIndex);
 
-    LOG("  hostInSecondaryThread: " << (int)format_record->hostInSecondaryThread);
+    LOG("  hostInSecondThread: " << (int)format_record->hostInSecondaryThread);
     LOG("  openAsSmartObject: " << (int)format_record->openAsSmartObject);
   }
 

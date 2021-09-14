@@ -24,8 +24,10 @@
 bool DoUI(WriteConfig* const write_config,
           const Metadata metadata[Metadata::kNum], SPPluginRef plugin_ref,
           const std::vector<FrameMemoryDesc>& original_frames,
+          bool original_frames_were_converted_to_8b,
           WebPData* const encoded_data, DisplayPixelsProc display_pixels_proc) {
-  WebPShopDialog dialog(*write_config, metadata, original_frames, encoded_data,
+  WebPShopDialog dialog(*write_config, metadata, original_frames,
+                        original_frames_were_converted_to_8b, encoded_data,
                         display_pixels_proc);
   int result = dialog.Modal(plugin_ref, NULL, 16090);
   if (result == kDOK) *write_config = dialog.GetWriteConfig();
@@ -97,11 +99,14 @@ void WebPShopDialog::Init(void) {
   update_cropped_compressed_frame_ = true;
 
   // UI elements default values.
+  std::string webp_str = "WebP settings:";
   if (write_config_.animation) {
-    webp_text_.SetText("Animated WebP settings:");
-  } else {
-    webp_text_.SetText("WebP settings:");
+    webp_str = "Animated " + webp_str;
   }
+  if (original_frames_were_converted_to_8b_) {
+    webp_str = "8-bit " + webp_str;
+  }
+  webp_text_.SetText(webp_str);
 
   quality_slider_.SetValue(write_config_.quality);
   quality_field_.SetValue(write_config_.quality);

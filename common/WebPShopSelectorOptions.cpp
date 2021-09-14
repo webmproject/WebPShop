@@ -16,6 +16,7 @@
 #include "SPPlugs.h"
 #include "WebPShop.h"
 #include "WebPShopSelector.h"
+#include "WebPShopUI.h"
 
 static bool IsAnimation(FormatRecordPtr format_record) {
   const ReadLayerDesc* layer_desc =
@@ -37,6 +38,14 @@ static bool IsAnimation(FormatRecordPtr format_record) {
 void DoOptionsPrepare(FormatRecordPtr format_record, Data* const data,
                       int16* const result) {
   format_record->maxData = 0;
+
+  // plugInModeRGB48 and plugInModeRGB96 do not seem to be Image Mode RGB Color
+  // with 16 or 32 bits/channel. Check 'format_record->depth' instead.
+  if (format_record->imageMode != plugInModeRGBColor) {
+    // format_record->convertMode does not seem to work here.
+    SetErrorString(format_record, "Image > Mode is not RGB Color");
+    *result = errReportString;
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -51,7 +60,7 @@ void DoOptionsStart(FormatRecordPtr format_record, Data* const data,
     *result = GetHostMetadata(format_record, data->metadata);
   }
 
-  // Don't ask encoding parameters to the user unless Photoshop requests it.
+  // Do not ask encoding parameters to the user unless Photoshop requests it.
   // This is usually plugInDialogSilent during Batch.
   const PIDescriptorParameters* const desc_params =
       format_record->descriptorParameters;
@@ -71,7 +80,9 @@ void DoOptionsStart(FormatRecordPtr format_record, Data* const data,
 
     if (*result == noErr) {
       if (!DoUI(&data->write_config, data->metadata, plugin_ref, frames,
-                &data->encoded_data, format_record->displayPixels)) {
+                /*original_frames_were_converted_to_8b=*/
+                (format_record->depth != 8), &data->encoded_data,
+                format_record->displayPixels)) {
         *result = userCanceledErr;
       }
     }

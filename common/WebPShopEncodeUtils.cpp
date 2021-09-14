@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cassert>
+
 #include "FileUtilities.h"
 #include "PIProperties.h"
 #include "WebPShop.h"
 #include "webp/encode.h"
+#include "webp/format_constants.h"
 #include "webp/mux.h"
 
 void SetWebPConfig(WebPConfig* const config, const WriteConfig& write_config) {
@@ -57,17 +60,32 @@ void SetWebPConfig(WebPConfig* const config, const WriteConfig& write_config) {
   if (config->alpha_quality > 100) config->alpha_quality = 100;
 }
 
+bool CastToWebPPicture(const WebPConfig& config, const ImageMemoryDesc& src,
+                       WebPPicture* const dst) {
+  WebPPictureFree(dst);
+
+  if (src.pixels.data == nullptr || src.width < 1 || src.height < 1 ||
+      src.num_channels != 4 || src.pixels.depth != 8) {
+    LOG("/!\\ Unsupported ImageMemoryDesc layout.");
+    return false;
+  }
+
+  dst->use_argb = 1;
+  dst->width = src.width;
+  dst->height = src.height;
+
+  // The data can be mapped to a WebPPicture without allocation.
+  assert(!config.show_compressed);  // 'dst->argb[]' will not be altered.
+  dst->argb = const_cast<uint32_t*>(
+      reinterpret_cast<const uint32_t*>(src.pixels.data));
+  dst->argb_stride = src.width;
+  return true;
+}
+
 bool EncodeOneImage(const ImageMemoryDesc& original_image,
                     const WriteConfig& write_config,
                     WebPData* const encoded_data) {
   START_TIMER(EncodeOneImage);
-
-  if (original_image.pixels.data == nullptr || original_image.width < 1 ||
-      original_image.height < 1 || original_image.num_channels != 4 ||
-      encoded_data == nullptr) {
-    LOG("/!\\ Source is null or incompatible.");
-    return false;
-  }
 
   WebPConfig config;
   if (!WebPConfigInit(&config)) {
@@ -82,12 +100,10 @@ bool EncodeOneImage(const ImageMemoryDesc& original_image,
     return false;
   }
 
-  pic.use_argb = 1;
-  pic.width = original_image.width;
-  pic.height = original_image.height;
-  pic.argb_stride = pic.width;
-  // Will not be modified (because no show_compressed).
-  pic.argb = (uint32_t*)original_image.pixels.data;
+  if (!CastToWebPPicture(config, original_image, &pic)) {
+    WebPPictureFree(&pic);
+    return false;
+  }
 
   START_TIMER(WebPEncode);
   WebPMemoryWriter memory_writer;
