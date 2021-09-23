@@ -18,7 +18,6 @@
 #include "PIProperties.h"
 #include "WebPShop.h"
 #include "webp/encode.h"
-#include "webp/format_constants.h"
 #include "webp/mux.h"
 
 void SetWebPConfig(WebPConfig* const config, const WriteConfig& write_config) {

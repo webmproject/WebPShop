@@ -14,6 +14,8 @@
 
 #include "WebPShop.h"
 
+#include <cmath>
+
 //------------------------------------------------------------------------------
 
 bool AllocateImage(ImageMemoryDesc* const image, int32 width, int32 height,
