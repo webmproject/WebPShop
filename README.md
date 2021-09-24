@@ -1,6 +1,6 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.3.3
+Current plug-in version: WebPShop 0.4.0
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
@@ -12,9 +12,9 @@ using the contents of this repository or contributing.
 
 Download the binary at https://github.com/webmproject/WebPShop/releases. \
 Direct link for Windows x64:
-https://github.com/webmproject/WebPShop/releases/download/v0.3.3/WebPShop_0_3_3_Win_x64.8bi \
+https://github.com/webmproject/WebPShop/releases/download/v0.4.0/WebPShop_0_4_0_Win_x64.8bi \
 Direct link for MacOS (extract the ZIP archive afterwise):
-https://github.com/webmproject/WebPShop/releases/download/v0.3.3/WebPShop_0_3_3_Mac_Universal.zip \
+https://github.com/webmproject/WebPShop/releases/download/v0.4.0/WebPShop_0_4_0_Mac_Universal.zip \
 Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
 to the Photoshop plug-in directory
 (`C:\Program Files\Adobe\Adobe Photoshop 2021\Plug-ins\` for Windows,
@@ -30,7 +30,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2021/Plug-
 
 ## Build
 
-Current libwebp version: WebP 1.2.0
+Current libwebp version: WebP 1.2.1
 
 Use Microsoft Visual Studio (2019 and above) for Windows and XCode for Mac.
 
@@ -83,7 +83,11 @@ The radio buttons offer several levels of compression effort:
 ## Limitations
 
 *   Only English is currently supported.
-*   Only "RGB Color" image mode at "8 Bits/Channel" is currently supported.
+*   Only "RGB Color" image mode is currently supported.
+*   16 and 32 bits/channels are downscaled to 8 bits/channels before the WebP
+    encoding because WebP only supports 8-bit internally.
+    Exports from 32-bit documents should include the color profile in the WebP
+    encoding settings, otherwise they might appear darker than expected.
 *   WebP images cannot exceed 16383 x 16383 pixels.
 *   The Timeline data is not used; thus animations rely on layers for defining
     frames (set duration as "(123 ms)" in each layer's name), and they need to
@@ -91,6 +95,8 @@ The radio buttons offer several levels of compression effort:
 *   On some images, lossless compression might produce smaller file sizes than
     lossy. That's why the quality slider is not linear. The same problem exists
     with the radio buttons controlling the compression effort.
+*   The color profile is always applied to the Preview image on Windows and
+    never applied on macOS, regardless of the related checkbox state.
 *   This plug-in does not extend `Export As` neither `Save for Web`.
 *   Encoding and decoding are done in a single pass. It is not currently
     possible to cancel such actions, and it might take some time on big images.
