@@ -17,7 +17,7 @@ Direct link for MacOS (extract the ZIP archive afterwise):
 https://github.com/webmproject/WebPShop/releases/download/v0.4.0/WebPShop_0_4_0_Mac_Universal.zip \
 Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
 to the Photoshop plug-in directory
-(`C:\Program Files\Adobe\Adobe Photoshop 2021\Plug-ins\` for Windows,
+(`C:\Program Files\Adobe\Adobe Photoshop 2022\Plug-ins\` for Windows,
 `Applications/Adobe Photoshop/Plug-ins/` for Mac). Run Photoshop.
 
 On macOS 10.15+, the prompt "WebPShop.plugin cannot be opened because
@@ -25,7 +25,7 @@ the developer cannot be verified" can be bypassed by running the following
 in Terminal (Finder > Applications > Utilities):
 
 ```
-sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2021/Plug-ins/WebPShop.plugin
+sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2022/Plug-ins/WebPShop.plugin
 ```
 
 ## Build
@@ -118,7 +118,7 @@ might help:
 
         C:\Program Files\Common Files\Adobe\Plug-Ins\CC
         C:\Program Files\Common Files\Adobe\Plug-Ins\CC\File Formats
-        C:\Program Files\Adobe\Adobe Photoshop 2021\Plug-ins
+        C:\Program Files\Adobe\Adobe Photoshop 2022\Plug-ins
 
 *   If it is still undetected, remove all plug-ins from all folders and copy
     WebPShop in only one of these folders, in case there is a plug-in conflict.
