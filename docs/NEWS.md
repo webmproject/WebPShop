@@ -72,3 +72,11 @@
     *   Built with Microsoft Visual Studio Community 2019 16.11.0.
     *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
         (v 22.5.1) x64, Release.
+
+-   26/11/2021: v0.4.1
+
+    *   Fix focus issue when closing the WebP encoding settings window on
+	    Windows.
+    *   Built with Microsoft Visual Studio Community 2019 16.11.7.
+    *   Tested on Windows Server 2016 Datacenter with Photoshop 2021
+        (v 23.0.2) x64, Release.

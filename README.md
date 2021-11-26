@@ -1,6 +1,6 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.4.0
+Current plug-in version: WebPShop 0.4.1
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
