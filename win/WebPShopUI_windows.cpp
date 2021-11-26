@@ -249,7 +249,9 @@ DLLExport BOOL WINAPI WindowProc(HWND hDlg, UINT wMsg, WPARAM wParam,
       if (item == kDQualitySlider || item == kDFrameSlider) {
         if (owner != NULL) owner->Notify(item);
       } else {
-        DefWindowProc(hDlg, wMsg, wParam, lParam);
+        // DefWindowProc() does not bring any visible benefit but a weird focus
+        // loss issue when clicking the X button. Do not call it.
+        // DefWindowProc(hDlg, wMsg, wParam, lParam);
       }
       return FALSE;
   }
