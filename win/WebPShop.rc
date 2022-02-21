@@ -64,45 +64,45 @@ END
 // Dialog
 //
 
-16090 DIALOGEX 0, 0, 371, 318
+16090 DIALOGEX 0, 0, 671, 518
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "WebPShop"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "&OK",1,312,6,50,14
-    PUSHBUTTON      "&Cancel",2,312,23,50,14
+    DEFPUSHBUTTON   "&OK",1,612,6,50,14
+    PUSHBUTTON      "&Cancel",2,612,23,50,14
     LTEXT           "WebP settings:",5,6,6,250,8
-    GROUPBOX        "Quality",10,6,18,204,54
-    CONTROL         "",11,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,40,30,100,15
-    EDITTEXT        12,174,30,24,14,ES_CENTER | ES_AUTOHSCROLL
-    LTEXT           "Lossy",13,35,50,50,8
-    LTEXT           "Lossless",14,120,50,50,8
-    GROUPBOX        "Compression",20,222,18,78,54
-    CONTROL         "Fastest",21,"Button",BS_AUTORADIOBUTTON,228,30,66,10
-    CONTROL         "Default",22,"Button",BS_AUTORADIOBUTTON,228,42,66,10
-    CONTROL         "Slowest",23,"Button",BS_AUTORADIOBUTTON,228,54,66,10
-    GROUPBOX        "Metadata",30,6,79,359,28
-    CONTROL         "Keep EXIF",33,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,13,91,80,8
-    CONTROL         "Keep XMP",34,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,98,91,80,8
-    CONTROL         "Keep Color Profile",35,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,183,91,80,8
-    CONTROL         "Loop forever",38,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,268,91,80,8
-    GROUPBOX        "         ",40,6,114,359,200
-    CTEXT           "",41,10,128,350,180,NOT WS_VISIBLE
-    CONTROL         "Preview: 12.3 kB",42,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,113,80,8
-    RTEXT           "  Frame: ",45,146,113,49,8
-    CONTROL         "",46,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,195,112,100,12
-    EDITTEXT        47,295,110,24,14,ES_CENTER | ES_AUTOHSCROLL
-    RTEXT           "40 ms",48,319,113,35,8
+    GROUPBOX        "Quality",10,106,6,204,54
+    CONTROL         "",11,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,140,18,100,15
+    EDITTEXT        12,274,18,24,14,ES_CENTER | ES_AUTOHSCROLL
+    LTEXT           "Lossy",13,135,38,50,8
+    LTEXT           "Lossless",14,220,38,50,8
+    GROUPBOX        "Compression",20,322,6,78,54
+    CONTROL         "Fastest",21,"Button",BS_AUTORADIOBUTTON,328,18,66,10
+    CONTROL         "Default",22,"Button",BS_AUTORADIOBUTTON,328,30,66,10
+    CONTROL         "Slowest",23,"Button",BS_AUTORADIOBUTTON,328,42,66,10
+    GROUPBOX        "Metadata",30,412,6,188,54
+    CONTROL         "Keep EXIF",33,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,418,18,80,10
+    CONTROL         "Keep XMP",34,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,418,30,80,10
+    CONTROL         "Keep Color Profile",35,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,418,42,80,10
+    CONTROL         "Loop forever",38,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,508,18,80,10
+    GROUPBOX        "         ",40,6,74,659,440
+    CTEXT           "",41,10,88,650,420,NOT WS_VISIBLE
+    CONTROL         "Preview: 12.3 kB",42,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,73,80,8
+    RTEXT           "  Frame: ",45,446,73,49,8
+    CONTROL         "",46,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,495,72,100,12
+    EDITTEXT        47,595,70,24,14,ES_CENTER | ES_AUTOHSCROLL
+    RTEXT           "40 ms",48,619,73,35,8
 END
 
 16091 DIALOG 0, 0, 200, 90
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About WebPShop"
 FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",1,171,7,11,14,NOT WS_VISIBLE | WS_DISABLED
     PUSHBUTTON      "Cancel",2,172,24,10,14,NOT WS_VISIBLE | WS_DISABLED
-    LTEXT           "WebPShop 0.4.1\nWebP 1.2.1\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2021 Google LLC.",5,10,10,180,50
+    LTEXT           "WebPShop 0.4.2\nWebP 1.2.2\nA Photoshop plug-in for reading and writing WebP files.\nCopyright 2019-2022 Google LLC.",5,10,10,180,50
     PUSHBUTTON      "developers.google.com/speed/webp",10,10,60,180,20
 END
 

@@ -109,7 +109,7 @@ short Dialog::GetItemId(PIItem item_ptr) {
 NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
   LOG("UI dialog window creation");
   NSWindow* window = [[NSWindow alloc]
-      initWithContentRect:NSMakeRect(0, 0, 369, 338)
+      initWithContentRect:NSMakeRect(0, 0, 669, 538)
                 styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable
                   backing:NSBackingStoreBuffered
                     defer:NO];
@@ -121,25 +121,25 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
   Set(kDWebPText,
       settings_text = [NSTextField labelWithString:@"WebP settings"]);
   [[window contentView] addSubview:settings_text];
-  [settings_text setFrame:NSMakeRect(6, 317, 200, 16)];
+  [settings_text setFrame:NSMakeRect(6, 517, 200, 16)];
   [settings_text setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDOK, ok_button = [NSButton buttonWithTitle:@"OK"
                                            target:delegate
                                            action:@selector(clickOk:)]);
   [[window contentView] addSubview:ok_button];
-  [ok_button setFrame:NSMakeRect(300, 308, 70, 25)];
+  [ok_button setFrame:NSMakeRect(600, 508, 70, 25)];
 
   Set(kDCancel,
       cancel_button = [NSButton buttonWithTitle:@"Cancel"
                                          target:delegate
                                          action:@selector(clickCancel:)]);
   [[window contentView] addSubview:cancel_button];
-  [cancel_button setFrame:NSMakeRect(300, 278, 70, 25)];
+  [cancel_button setFrame:NSMakeRect(600, 478, 70, 25)];
 
   LOG("  Quality elements");
   Set(kDNone,
-      quality_box = [[NSBox alloc] initWithFrame:NSMakeRect(5, 248, 204, 70)]);
+      quality_box = [[NSBox alloc] initWithFrame:NSMakeRect(5, 448, 204, 70)]);
   [[window contentView] addSubview:quality_box];
   [quality_box setTitle:@"Quality"];
 
@@ -147,28 +147,28 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
       quality_slider =
           [NSSlider sliderWithTarget:delegate action:@selector(notified:)]);
   [[window contentView] addSubview:quality_slider];
-  [quality_slider setFrame:NSMakeRect(40, 278, 100, 20)];
+  [quality_slider setFrame:NSMakeRect(40, 478, 100, 20)];
 
   Set(kDQualityField, quality_field = [NSTextField textFieldWithString:@"75"]);
   [[window contentView] addSubview:quality_field];
-  [quality_field setFrame:NSMakeRect(170, 278, 30, 22)];
+  [quality_field setFrame:NSMakeRect(170, 478, 30, 22)];
   [quality_field setDelegate:delegate];
 
   Set(kDNone, quality_text_smallest =
                   [NSTextField labelWithString:@"Lossy"]);
   [[window contentView] addSubview:quality_text_smallest];
-  [quality_text_smallest setFrame:NSMakeRect(20, 258, 80, 16)];
+  [quality_text_smallest setFrame:NSMakeRect(20, 458, 80, 16)];
   [quality_text_smallest setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDNone,
       quality_text_lossless = [NSTextField labelWithString:@"Lossless"]);
   [[window contentView] addSubview:quality_text_lossless];
-  [quality_text_lossless setFrame:NSMakeRect(120, 258, 80, 16)];
+  [quality_text_lossless setFrame:NSMakeRect(120, 458, 80, 16)];
   [quality_text_lossless setFont:[NSFont systemFontOfSize:11]];
 
   LOG("  Compression elements");
   Set(kDNone, compression_box =
-                  [[NSBox alloc] initWithFrame:NSMakeRect(210, 248, 95, 80)]);
+                  [[NSBox alloc] initWithFrame:NSMakeRect(210, 448, 95, 80)]);
   [[window contentView] addSubview:compression_box];
   [compression_box setTitle:@"Compression"];
 
@@ -177,7 +177,7 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                               target:delegate
                                               action:@selector(notified:)]);
   [[window contentView] addSubview:compression_radio_button_fastest];
-  [compression_radio_button_fastest setFrame:NSMakeRect(220, 293, 66, 20)];
+  [compression_radio_button_fastest setFrame:NSMakeRect(220, 493, 66, 20)];
   [compression_radio_button_fastest setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDCompressionDefault, compression_radio_button_default = [NSButton
@@ -185,7 +185,7 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                               target:delegate
                                               action:@selector(notified:)]);
   [[window contentView] addSubview:compression_radio_button_default];
-  [compression_radio_button_default setFrame:NSMakeRect(220, 273, 66, 20)];
+  [compression_radio_button_default setFrame:NSMakeRect(220, 473, 66, 20)];
   [compression_radio_button_default setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDCompressionSlowest, compression_radio_button_smallest = [NSButton
@@ -193,12 +193,12 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                               target:delegate
                                               action:@selector(notified:)]);
   [[window contentView] addSubview:compression_radio_button_smallest];
-  [compression_radio_button_smallest setFrame:NSMakeRect(220, 253, 66, 20)];
+  [compression_radio_button_smallest setFrame:NSMakeRect(220, 453, 66, 20)];
   [compression_radio_button_smallest setFont:[NSFont systemFontOfSize:11]];
   
   LOG("  Metadata elements");
   Set(kDNone, metadata_box =
-                  [[NSBox alloc] initWithFrame:NSMakeRect(5, 195, 359, 50)]);
+                  [[NSBox alloc] initWithFrame:NSMakeRect(306, 448, 195, 80)]);
   [[window contentView] addSubview:metadata_box];
   [metadata_box setTitle:@"Metadata"];
 
@@ -207,7 +207,7 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                            target:delegate
                                            action:@selector(notified:)]);
   [[window contentView] addSubview:metadata_exif_checkbox];
-  [metadata_exif_checkbox setFrame:NSMakeRect(15, 205, 80, 22)];
+  [metadata_exif_checkbox setFrame:NSMakeRect(316, 493, 80, 20)];
   [metadata_exif_checkbox setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDKeepXmp, metadata_xmp_checkbox =
@@ -215,7 +215,7 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                            target:delegate
                                            action:@selector(notified:)]);
   [[window contentView] addSubview:metadata_xmp_checkbox];
-  [metadata_xmp_checkbox setFrame:NSMakeRect(100, 205, 80, 22)];
+  [metadata_xmp_checkbox setFrame:NSMakeRect(316, 473, 80, 20)];
   [metadata_xmp_checkbox setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDKeepColorProfile, metadata_iccp_checkbox =
@@ -223,7 +223,7 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                            target:delegate
                                            action:@selector(notified:)]);
   [[window contentView] addSubview:metadata_iccp_checkbox];
-  [metadata_iccp_checkbox setFrame:NSMakeRect(185, 205, 80, 22)];
+  [metadata_iccp_checkbox setFrame:NSMakeRect(316, 453, 80, 20)];
   [metadata_iccp_checkbox setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDLoopForever, metadata_loop_checkbox =
@@ -231,12 +231,12 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                            target:delegate
                                            action:@selector(notified:)]);
   [[window contentView] addSubview:metadata_loop_checkbox];
-  [metadata_loop_checkbox setFrame:NSMakeRect(270, 205, 80, 22)];
+  [metadata_loop_checkbox setFrame:NSMakeRect(400, 493, 80, 20)];
   [metadata_loop_checkbox setFont:[NSFont systemFontOfSize:11]];
 
   LOG("  Proxy");
   Set(kDNone,
-      proxy_box = [[NSBox alloc] initWithFrame:NSMakeRect(5, 5, 359, 180)]);
+      proxy_box = [[NSBox alloc] initWithFrame:NSMakeRect(5, 5, 659, 433)]);
   [[window contentView] addSubview:proxy_box];
   [proxy_box setTitle:@""];  // The checkbox replaces the title.
 
@@ -245,7 +245,7 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
                                             target:delegate
                                             action:@selector(notified:)]);
   [[window contentView] addSubview:proxy_checkbox];
-  [proxy_checkbox setFrame:NSMakeRect(20, 170, 160, 22)];
+  [proxy_checkbox setFrame:NSMakeRect(20, 423, 160, 22)];
   [proxy_checkbox setFont:[NSFont systemFontOfSize:11]];
 
   const CGFloat proxy_padding = 10;
@@ -261,24 +261,24 @@ NSWindow* Dialog::CreateWindow(WebPShopDelegate* const delegate) {
   LOG("  Animation");
   Set(kDFrameText, frame_text = [NSTextField labelWithString:@"Frame:"]);
   [[window contentView] addSubview:frame_text];
-  [frame_text setFrame:NSMakeRect(185, 169, 40, 22)];
+  [frame_text setFrame:NSMakeRect(485, 422, 40, 22)];
   [frame_text setFont:[NSFont systemFontOfSize:11]];
 
   Set(kDFrameSlider,
       frame_index_slider =
           [NSSlider sliderWithTarget:delegate action:@selector(notified:)]);
   [[window contentView] addSubview:frame_index_slider];
-  [frame_index_slider setFrame:NSMakeRect(225, 173, 50, 22)];
+  [frame_index_slider setFrame:NSMakeRect(525, 426, 50, 22)];
 
   Set(kDFrameField, frame_index_field = [NSTextField textFieldWithString:@"1"]);
   [[window contentView] addSubview:frame_index_field];
-  [frame_index_field setFrame:NSMakeRect(280, 173, 30, 22)];
+  [frame_index_field setFrame:NSMakeRect(580, 426, 30, 22)];
   [frame_index_field setDelegate:delegate];
 
   Set(kDFrameDurationText,
       frame_duration_text = [NSTextField labelWithString:@"100 ms"]);
   [[window contentView] addSubview:frame_duration_text];
-  [frame_duration_text setFrame:NSMakeRect(315, 169, 40, 22)];
+  [frame_duration_text setFrame:NSMakeRect(515, 422, 40, 22)];
   [frame_duration_text setFont:[NSFont systemFontOfSize:11]];
   [frame_duration_text setAlignment:NSTextAlignmentCenter];
 

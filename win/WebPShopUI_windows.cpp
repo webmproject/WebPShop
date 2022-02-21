@@ -216,7 +216,7 @@ DLLExport BOOL WINAPI WindowProc(HWND hDlg, UINT wMsg, WPARAM wParam,
       if (owner == NULL) return FALSE;
       owner->SetDialog(hDlg);
       owner->Init();
-      if (owner != NULL) owner->PaintProxy();
+      owner->PaintProxy();
       return TRUE;
     }
     case WM_PAINT: {
@@ -227,7 +227,7 @@ DLLExport BOOL WINAPI WindowProc(HWND hDlg, UINT wMsg, WPARAM wParam,
       int item = LOWORD(wParam);
       int cmd = HIWORD(wParam);
       if (owner != NULL) owner->Notify(item);
-      if ((item == 1 || item == 2) && cmd == BN_CLICKED) {
+      if ((item == kDOK || item == kDCancel) && cmd == BN_CLICKED) {
         EndDialog(hDlg, item);
       }
       return TRUE;
@@ -270,37 +270,35 @@ int WebPShopDialog::Modal(SPPluginRef plugin, const char*, int ID) {
 //------------------------------------------------------------------------------
 // About box
 
-class PIWebPShopAboutBox : public PIDialog {
- private:
-  virtual void Init() {}
-  virtual void Notify(int32 item) {
-    if (item == kDAboutWebPLink) {
-      sPSFileList->BrowseUrl("https://developers.google.com/speed/webp");
+DLLExport BOOL WINAPI AboutBoxProc(HWND hDlg, UINT wMsg, WPARAM wParam,
+                                   LPARAM lParam) {
+  switch (wMsg) {
+    case WM_INITDIALOG: {
+      CenterDialog(hDlg);
+      return TRUE;  // Direct the system to set the keyboard focus to wParam.
     }
-  }
-  virtual void Message(UINT wMsg, WPARAM wParam, LPARAM lParam) {
-    switch (wMsg) {
-      case WM_CHAR: {
-        TCHAR chCharCode = (TCHAR)wParam;
-        if (chCharCode == VK_ESCAPE || chCharCode == VK_RETURN)
-          EndDialog(GetDialog(), 0);
-        break;
+    case WM_COMMAND: {
+      int item = LOWORD(wParam);
+      if (item == kDAboutWebPLink) {
+        sPSFileList->BrowseUrl("https://developers.google.com/speed/webp");
+        return TRUE;
       }
-      case WM_LBUTTONUP: {
-        EndDialog(GetDialog(), 0);
-        break;
-      }
+      return FALSE;
     }
+    case WM_KEYDOWN:    // Keyboard event (does not work)
+    case WM_LBUTTONUP:  // Mouse click on window
+    case WM_CLOSE: {    // Mouse click on [X] button
+      EndDialog(hDlg, 0);
+      return TRUE;
+    }
+    default:
+      return FALSE;  //Let the dialog manager perform the default operation.
   }
-
- public:
-  PIWebPShopAboutBox() : PIDialog() {}
-  ~PIWebPShopAboutBox() {}
-};
+}
 
 void DoAboutBox(SPPluginRef plugin_ref) {
-  PIWebPShopAboutBox aboutBox;
-  (void)aboutBox.Modal(plugin_ref, "About WebPShop", 16091);
+  (void)DialogBoxParam(GetDLLInstance(plugin_ref), MAKEINTRESOURCE(16091),
+                       GetActiveWindow(), (DLGPROC)AboutBoxProc, (LPARAM)0);
 }
 
 #endif  // __PIWin__

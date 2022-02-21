@@ -1,9 +1,14 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.4.1
+Current plug-in version: WebPShop 0.4.2
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
+
+**Important note: [Photoshop 23.2 and newer natively supports WebP](https://helpx.adobe.com/photoshop/kb/support-webp-image-format.html).**
+However some features such as preview at encoding and animations are missing.
+WebPShop can still be installed and used for these use cases and/or for
+Photoshop 23.1 and below.
 
 Please look at the files LICENSE and CONTRIBUTING in the "docs" folder before
 using the contents of this repository or contributing.
@@ -17,8 +22,8 @@ Direct link for MacOS (extract the ZIP archive afterwise):
 https://github.com/webmproject/WebPShop/releases/download/v0.4.0/WebPShop_0_4_0_Mac_Universal.zip \
 Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
 to the Photoshop plug-in directory
-(`C:\Program Files\Adobe\Adobe Photoshop 2022\Plug-ins\` for Windows,
-`Applications/Adobe Photoshop/Plug-ins/` for Mac). Run Photoshop.
+(`C:\Program Files\Common Files\Adobe\Plug-Ins\CC` for Windows,
+`/Library/Application Support/Adobe/Plug-Ins/CC` for Mac). Run Photoshop.
 
 On macOS 10.15+, the prompt "WebPShop.plugin cannot be opened because
 the developer cannot be verified" can be bypassed by running the following
@@ -28,38 +33,18 @@ in Terminal (Finder > Applications > Utilities):
 sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2022/Plug-ins/WebPShop.plugin
 ```
 
-## Build
-
-Current libwebp version: WebP 1.2.1
-
-Use Microsoft Visual Studio (2019 and above) for Windows and XCode for Mac.
-
-*   Download the latest Adobe Photoshop Plug-In and Connection SDK at
-    https://console.adobe.io/downloads/ps,
-*   Put the contents of this repository in a "webpshop" folder located at
-    `adobe_photoshop_sdk_[version]/pluginsdk/samplecode/format`,
-*   Download the latest WebP binaries at
-    https://developers.google.com/speed/webp/docs/precompiled or build them,
-*   Add `path/to/webp/includes` and `path/to/webp/includes/src` as Additional
-    Include Directories to the WebPShop project [1],
-*   Add webp, webpdemux, webpmux libraries as Additional Dependencies to the
-    WebPShop project [1],
-*   Build with the same architecture and configuration as your Photoshop
-    installation and the WebP binaries (x64 or arm64, Debug/Release),
-*   By example for Windows, it should output the plug-in file `WebPShop.8bi` in
-    `adobe_photoshop_sdk_[version]/pluginsdk/samplecode/Output/Win/x64/Release`.
-
-[1] By default the XCode project includes and links to the
-`libwebp-[version]-mac-[version]` folder in the `webpshop` directory. The VS
-project expects `libwebp-[version]-windows-x64` (or `-arm64`).
-
 ## Features
 
 *   `Open`, `Open As` menu commands can be used to read .webp files.
-*   `Save`, `Save As` menu commands can be used to write .webp files. Encoding
+*   `Save a Copy...` menu command can be used to write .webp files. Encoding
     parameters can be tuned through the UI.
 
 ![WebPShop encoding settings - Windows](docs/webpshop_enc_ui_windows.webp)
+
+Photoshop 23.2 and above has partial native WebP support. It will appear as
+`WebP (*.WEBP)` in the "Save as type:" drop-down list at encoding. WebPShop will
+still appear as `WebPShop (*.WEBP, *.WEBP)`. Use the latter. \
+WebPShop is used at decoding.
 
 ## Encoding settings
 
@@ -110,23 +95,24 @@ might help:
 *   Update Photoshop to the latest version.
 *   Double-check that the plug-in binaries match the Operating System and the
     architecture.
-*   The plug-in should be listed in the "Help > About Plug-In" submenu if it is
+*   The plug-in should be listed in the "Help > About Plugins" submenu if it is
     found by Photoshop.
 *   If it is undetected, disable any antivirus program or allow the plug-in
     execution (including in MacOS and Windows built-in protections).
-*   If it is still undetected, try each of these folders (Windows paths):
+*   If it is still undetected, try each of these folders. Windows paths:
 
         C:\Program Files\Common Files\Adobe\Plug-Ins\CC
         C:\Program Files\Common Files\Adobe\Plug-Ins\CC\File Formats
         C:\Program Files\Adobe\Adobe Photoshop 2022\Plug-ins
 
+    MacOS paths:
+
+        /Library/Application Support/Adobe/Plug-Ins/CC
+		Applications/Adobe Photoshop/Plug-ins/
+
 *   If it is still undetected, remove all plug-ins from all folders and copy
     WebPShop in only one of these folders, in case there is a plug-in conflict.
     Restart the computer and/or Photoshop.
-*   If it is detected but there is no WebP entry in the Save menu, check that
-    WebP files can be at least opened (find one online such as this one:
-    https://www.gstatic.com/webp/gallery/4.sm.webp). The issue might come from
-    unsupported encoding settings, see the limitations above.
 
 If the issue still occurs, check https://github.com/webmproject/WebPShop/issues
 to see if it is already mentioned or open a new bug report otherwise.
@@ -148,3 +134,28 @@ The `win` folder contains a Visual Studio solution and project, alongside with
 
 The `mac` folder contains an XCode project. `WebPShopUIDialog_mac.h` and `.mm`
 describe the UI layout, while `WebPShopUI_mac.mm` handles the window events.
+
+## Build
+
+Current libwebp version: WebP 1.2.2
+
+Use Microsoft Visual Studio (2019 and above) for Windows and XCode for Mac.
+
+*   Download the latest Adobe Photoshop Plug-In and Connection SDK at
+    https://console.adobe.io/downloads/ps,
+*   Put the contents of this repository in a "webpshop" folder located at
+    `adobe_photoshop_sdk_[version]/pluginsdk/samplecode/format`,
+*   Download the latest WebP binaries at
+    https://developers.google.com/speed/webp/docs/precompiled or build them,
+*   Add `path/to/webp/includes` and `path/to/webp/includes/src` as Additional
+    Include Directories to the WebPShop project [1],
+*   Add webp, webpdemux, webpmux libraries as Additional Dependencies to the
+    WebPShop project [1],
+*   Build with the same architecture and configuration as your Photoshop
+    installation and the WebP binaries (x64 or arm64, Debug/Release),
+*   By example for Windows, it should output the plug-in file `WebPShop.8bi` in
+    `adobe_photoshop_sdk_[version]/pluginsdk/samplecode/Output/Win/x64/Release`.
+
+[1] By default the XCode project includes and links to the
+`libwebp-[version]-mac-[version]` folder in the `webpshop` directory. The VS
+project expects `libwebp-[version]-windows-x64` (or `-arm64`).

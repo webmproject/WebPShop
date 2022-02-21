@@ -298,8 +298,8 @@ void DoAboutBox(SPPluginRef plugin_ref) {
 
   [alert setMessageText:@"About WebPShop"];
   [alert setInformativeText:
-             @"WebPShop 0.4.1\nWebP 1.2.1\nA Photoshop plug-in for reading "
-             @"and writing WebP files.\nCopyright 2019-2021 Google LLC."];
+             @"WebPShop 0.4.2\nWebP 1.2.2\nA Photoshop plug-in for reading "
+             @"and writing WebP files.\nCopyright 2019-2022 Google LLC."];
   [alert setAlertStyle:NSAlertStyleInformational];
 
   const NSModalResponse buttonPressed = [alert runModal];
