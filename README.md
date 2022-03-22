@@ -30,7 +30,7 @@ the developer cannot be verified" can be bypassed by running the following
 in Terminal (Finder > Applications > Utilities):
 
 ```
-sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2022/Plug-ins/WebPShop.plugin
+sudo xattr -r -d com.apple.quarantine /Library/Application Support/Adobe/Plug-Ins/CC/WebPShop.plugin
 ```
 
 ## Features
