@@ -17,9 +17,9 @@ using the contents of this repository or contributing.
 
 Download the binary at https://github.com/webmproject/WebPShop/releases. \
 Direct link for Windows x64:
-https://github.com/webmproject/WebPShop/releases/download/v0.4.0/WebPShop_0_4_0_Win_x64.8bi \
+https://github.com/webmproject/WebPShop/releases/download/v0.4.2/WebPShop_0_4_2_Win_x64.8bi \
 Direct link for MacOS (extract the ZIP archive afterwise):
-https://github.com/webmproject/WebPShop/releases/download/v0.4.0/WebPShop_0_4_0_Mac_Universal.zip \
+https://github.com/webmproject/WebPShop/releases/download/v0.4.2/WebPShop_0_4_2_Mac_Universal.zip \
 Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
 to the Photoshop plug-in directory
 (`C:\Program Files\Common Files\Adobe\Plug-Ins\CC` for Windows,
@@ -30,7 +30,7 @@ the developer cannot be verified" can be bypassed by running the following
 in Terminal (Finder > Applications > Utilities):
 
 ```
-sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2022/Plug-ins/WebPShop.plugin
+sudo xattr -r -d com.apple.quarantine /Library/Application\ Support/Adobe/Plug-Ins/CC/WebPShop.plugin
 ```
 
 ## Features
@@ -44,7 +44,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Photoshop\ 2022/Plug-
 Photoshop 23.2 and above has partial native WebP support. It will appear as
 `WebP (*.WEBP)` in the "Save as type:" drop-down list at encoding. WebPShop will
 still appear as `WebPShop (*.WEBP, *.WEBP)`. Use the latter. \
-WebPShop is used at decoding.
+WebPShop can also be used at decoding through the "Open as..." menu.
 
 ## Encoding settings
 
