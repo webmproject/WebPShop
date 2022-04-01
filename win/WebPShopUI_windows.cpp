@@ -156,9 +156,9 @@ bool WebPShopDialog::DisplayImage(const ImageMemoryDesc& image,
     return false;
   }
 
-  PSPixelMap pixels;
-  PSPixelMask mask;
-  pixels.version = 1;
+  PSPixelMask mask = {};
+  PSPixelMap pixels = {};
+  pixels.version = 3;
   pixels.bounds.left = 0;
   pixels.bounds.right = image.width;
   pixels.bounds.top = 0;
@@ -173,6 +173,11 @@ bool WebPShopDialog::DisplayImage(const ImageMemoryDesc& image,
   pixels.masks = NULL;
   pixels.maskPhaseRow = 0;
   pixels.maskPhaseCol = 0;
+  pixels.pixelOverlays = NULL;
+  pixels.colorManagementOptions = write_config_.keep_color_profile
+                                      ? kViewAsStandardRGB
+                                      : kViewAsUncompensated;
+  pixels.depth = image.pixels.depth;
 
   if (image.num_channels == 4) {
     mask.next = NULL;

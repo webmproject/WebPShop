@@ -1,6 +1,6 @@
 # WebP file format plug-in for Photoshop
 
-Current plug-in version: WebPShop 0.4.2
+Current plug-in version: WebPShop 0.4.3
 
 WebPShop is a Photoshop module for opening and saving WebP images, including
 animations.
@@ -17,7 +17,7 @@ using the contents of this repository or contributing.
 
 Download the binary at https://github.com/webmproject/WebPShop/releases. \
 Direct link for Windows x64:
-https://github.com/webmproject/WebPShop/releases/download/v0.4.2/WebPShop_0_4_2_Win_x64.8bi \
+https://github.com/webmproject/WebPShop/releases/download/v0.4.3/WebPShop_0_4_3_Win_x64.8bi \
 Direct link for MacOS (extract the ZIP archive afterwise):
 https://github.com/webmproject/WebPShop/releases/download/v0.4.2/WebPShop_0_4_2_Mac_Universal.zip \
 Move the plug-in (the .8bi binary for Windows or the .plugin folder for MacOS)
@@ -80,8 +80,8 @@ The radio buttons offer several levels of compression effort:
 *   On some images, lossless compression might produce smaller file sizes than
     lossy. That's why the quality slider is not linear. The same problem exists
     with the radio buttons controlling the compression effort.
-*   The color profile is always applied to the Preview image on Windows and
-    never applied on macOS, regardless of the related checkbox state.
+*   The color profile is not applied to the Preview image on macOS, regardless
+    of the related checkbox state.
 *   This plug-in does not extend `Export As` neither `Save for Web`.
 *   Encoding and decoding are done in a single pass. It is not currently
     possible to cancel such actions, and it might take some time on big images.

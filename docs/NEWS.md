@@ -90,3 +90,10 @@
     *   Built with Microsoft Visual Studio Community 2019 16.11.10.
     *   Tested on Windows Server 2016 Datacenter with Photoshop 2022
         (v 23.2.0) x64, Release.
+
+-   2022/04/01: v0.4.3
+
+    *   Fixed the Preview applying the color profile with no ICC on Windows.
+    *   Built with Microsoft Visual Studio Community 2019 16.11.10.
+    *   Tested on Windows Server 2016 Datacenter with Photoshop 2022
+        (v 23.2.2) x64, Release.
